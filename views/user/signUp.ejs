@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+
+</head>
+
+<body>
+  <% include ../partials/scripts.ejs %>
+    <% include ../partials/menu.ejs %>
+    <div class="container-fluid navbarAllowance">
+        <h1 class="text-center">Register</h1>
+        <br>
+        <div class="row d-flex justify-content-center">
+          <!-- Validation errors -->
+          <% if(messages.length > 0) { %>
+            <% messages.forEach( function (message){ %>
+              <div class="alert alert-danger" role="alert">
+                <%= message  %>
+              </div>
+            <% }) %>
+          <%}%>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <form  action="/user/signup" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group">
+              <label for="email" >Email</label>
+              <input type="email" name="email" class="form-control" id="email" >
+            </div>
+            <div class="form-group">
+              <label for="password" >Password</label>
+              <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <button type="submit" name="button" class="btn btn-primary btn-block">Sign Up</button>
+          </form>
+        </div>
+      </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<div class="card-columns">
+  <% events.forEach(function(event){ %>
+    <div class="card">
+
+      <form class="" action="/admin/updateEvent/<%= event.id%>" method="post">
+        <img class="card-img-top" src="<%= event.imagePath %>" alt="Card image cap">
+        <div class="card-body">
+          <!-- <h2 class="card-title"> <%= event.title %> </h2> -->
+          <small class="font-weight-light pb-2">Title</small>
+          <input class="form-control mb-3" type="text" name="title" value="<%= event.title %>">
+          <small class="font-weight-light pb-2">Description</small>
+          <p class="card-text">
+            <textarea class="form-control" name="description"  name="description"><%= event.description %></textarea>
+          </p>
+          <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+
+
+          <div class="input-group p-0 col">
+            <div class="input-group-prepend">
+              <span class="input-group-text">£</span>
+            </div>
+            <input type="number" step="0.01" name="price" class="form-control" value="<%= event.price %>">
+          </div>
+          <br>
+          <button type="submit" name="button" class="btn btn-success">Update</button>
+          <br>
+          <br>
+
+          <ul class="list-group list-group-flush">
+            <p class="text-center">Attendees</p>
+            <% event.attending.forEach(function(user){ %>
+              <li class="list-group-item text-center">
+                <!-- ejs with user.email  -->
+                <%= user.email %>
+              </li>
+              <% }) %>
+          </ul>
+        </div>
+      </form>
+
+    </div>
+    <% }) %>
+</div>

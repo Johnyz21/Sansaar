@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+
+</head>
+
+<body>
+  <% include ../partials/scripts.ejs %>
+    <% include ../partials/menu.ejs %>
+    <div class="container-fluid navbarAllowance">
+        <h1 class="text-center">Sign In</h1>
+        <br>
+        <div class="row d-flex justify-content-center">
+          <% if(messages.length > 0) { %>
+            <% messages.forEach( function (message){ %>
+              <div class="alert alert-danger" role="alert">
+                <%= message  %>
+              </div>
+            <% }) %>
+          <%}%>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <form  action="/user/signIn" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group">
+              <label for="email" >Email</label>
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="password" >Password</label>
+              <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <button type="submit" name="button" class="btn btn-primary btn-block">Sign In</button>
+          </form>
+        </div>
+        <br>
+        <div class="row d-flex justify-content-center">
+
+          <p> Dont have an account? <a href="/user/signup">sign up here </a></p>
+        </div>
+      </div>
+
+
+</body>
+
+</html>

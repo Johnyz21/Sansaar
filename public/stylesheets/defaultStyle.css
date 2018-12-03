@@ -1,0 +1,57 @@
+/* @import url('../../node_modules/font-awesome/css/font-awesome.min.css'); */
+@font-face {
+  font-family: ArefRuqaaBold;
+  src: url(../fonts/home/ArefRuqaaBold.ttf);
+}
+@font-face {
+  font-family: DancingScriptBold;
+  src: url(../fonts/home/DancingScriptBold.ttf);
+}
+
+body {
+  background-color: #f7f4f1;
+  /* background-image: radial-gradient(#BCAF9C, #F9EEE0); */
+}
+
+nav {
+  background-color: rgba(0,0,0,0.7);
+}
+
+a {
+  color: #00B7FF;
+}
+
+nav .nav-link {
+  font-family: ArefRuqaaBold;
+  color: white;
+  font-size: 15px;
+}
+h1 {
+  text-align: center;
+}
+
+.btn-success {
+  border-color: #DADDD8;
+  background-color: #DADDD8;
+  color: #1C1C1C;
+}
+.btn-success:hover {
+  color: #DADDD8;
+  background-color: #69626D;
+  border-color: #69626D;
+}
+.price{
+  font-weight: bold;
+}
+
+.navbarAllowance {
+  margin-top: 80px;
+}
+/* .card {
+  background-color: transparent;
+  border: 0px;
+  box-shadow: 0px 0px 10px grey;
+}
+.card-footer {
+  background-color: inherit;
+} */

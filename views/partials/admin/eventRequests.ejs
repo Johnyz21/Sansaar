@@ -1,0 +1,36 @@
+
+
+
+    <select class="custom-select" name="event" id="eventSelection">
+      <option >Please select an event</option>
+      <% events.forEach(function(event){ %>
+        <option value="<%= event._id %>"  > <%= event.title %></option>
+      <% }) %>
+    </select>
+    <div class="" id="eventsTable">
+      <% include eventRequestTable %>
+    </div>
+
+
+
+<!-- <script type="text/javascript">
+  $(document).ready(()=>{
+    $('#eventSelection').change(() => {
+      var eventId = $('#eventSelection option:selected').val();
+      $.ajax({
+        url: '/admin/getEvent/' + eventId,
+        type: 'GET',
+        contentType: 'application/json',
+        success: (data) => {
+                            $('#eventsTable').html(data);
+                        }
+      })
+    });
+  });
+</script> -->
+
+
+
+
+</div>
+</table>

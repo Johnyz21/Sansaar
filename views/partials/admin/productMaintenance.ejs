@@ -1,0 +1,29 @@
+<div class="card-columns">
+  <% products.forEach(function(product){ %>
+    <div class="card">
+      <form class="" action="/admin/updateProduct/<%= product.id%>" method="post">
+        <img class="card-img-top" src="<%= product.imagePath %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"> <%= product.title %> </h5>
+
+          <input class="form-control mb-3" type="text" name="title" value="<%= product.title %>">
+
+          <small class="text-muted pb-2">Description</small>
+          <p class="card-text">
+            <textarea class="form-control" name="description"  name="description"><%= product.description %></textarea>
+          </p>
+          <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+
+          <div class="input-group p-0 col">
+            <div class="input-group-prepend">
+              <span class="input-group-text">£</span>
+            </div>
+            <input type="number" name="price" step="0.01" class="form-control" value="<%= product.price %>">
+          </div>
+          <br>
+          <button type="submit" name="button" class="btn btn-success">Update</button>
+        </div>
+      </form>
+    </div>
+  <% }) %>
+</div>

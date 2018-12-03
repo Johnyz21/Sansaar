@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/scripts.ejs %>
+    <% include ../partials/menu.ejs %>
+
+
+      <div class="container-fluid navbarAllowance" >
+        <!-- <h1><%= title %></h1> -->
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-6">
+            <div class="alert alert-success text-center" <% if(noMessages) {%> hidden
+              <%} %> >
+                <%= successMessage %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-10">
+            <div class="card-columns">
+
+
+                  <% products.forEach(function(product){ %>
+                    <div class="card">
+                      <!-- <div class="card-header">
+                        <p class="text-center">Product</p>
+                      </div> -->
+                      <img class="card-img-top" src="<%= product.imagePath %>" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title"> <%= product.title %> </h5>
+                        <p class="card-text">
+                          <%= product.description %>
+                        </p>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+
+
+                      </div>
+                      <div class="card-footer d-flex align-items-center justify-content-between">
+                        <div class="price"> £
+                          <%= product.price %>
+                        </div>
+
+                        <a href="/shop/addProductToCart/<%= product.id%>" class="btn btn-success">Add to cart</a>
+
+
+
+                      </div>
+                    </div>
+                    <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>

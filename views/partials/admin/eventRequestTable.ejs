@@ -1,0 +1,37 @@
+
+<% if(event.applied) { %>
+<form class="" action="/admin/authoriseUsersForEvent" method="post">
+  <input type="submit" name="action" value="Submit" class="btn btn-primary btn-block">
+
+        <div class="table-wrapper-scroll-y">
+
+          <table class="table table-hover productRequestTable">
+             <thead class="py-1">
+              <tr>
+                <th scope="col"> Event  </th>
+                <th scope="col"> User Email</th>
+                <th scope="col"> Authorise </th>
+              </tr>
+            </thead>
+            <tbody>
+                <input type="hidden" name="eventId" value="<%=event.id %>">
+                <% event.applied.forEach(function(user){ %>
+                <tr>
+
+                    <td>
+                      <%= event.title %>
+                    </td>
+                    <td>
+                      <%= user.email %>
+                    </td>
+
+                    <td>
+                      <input type="checkbox" name="users[]" value="<%=user.id%>">
+                    </td>
+
+                </tr>
+                <% }) %>
+
+</tbody>
+</form>
+<% } %>

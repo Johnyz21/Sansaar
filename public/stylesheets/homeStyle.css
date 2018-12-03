@@ -1,0 +1,185 @@
+
+
+@font-face {
+  font-family: BebasNeueLight;
+  src: url(../fonts/home/BebasNeueLight.otf);
+}
+
+@font-face {
+  font-family: BebasNeueRegular;
+  src: url(../fonts/home/BebasNeueRegular.otf);
+}
+
+@font-face {
+  font-family: BebasNeueBook;
+  src: url(../fonts/home/BebasNeueBook.otf);
+}
+
+@font-face {
+  font-family: MontserratMedium;
+  src: url(../fonts/home/MontserratMedium.ttf);
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  /* padding-left: 0px; */
+  /* padding-right: 0px; */
+  background-color: #000000;
+}
+
+h1 {
+  font-family: DancingScriptBold;
+  color: #616163;
+  text-align: center;
+}
+h2, #brochureDownload  {
+  font-family: ArefRuqaaBold;
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: MontserratMedium;
+  color: #FFFFFF;
+}
+
+.landing {
+  background: url("/images/backgroundTemple-min.png") no-repeat;
+  /* background-size: 100%;
+  min-height: 100vh; */
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.subheading {
+  font-family: BebasNeueLight;
+  color: #616163;
+}
+
+.card {
+  background-color: transparent;
+  border: 0px;
+  box-shadow: 0px 0px 0px white;
+}
+.card-footer {
+  background-color: inherit;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#brochureDownload {
+  color: #FFFFFF;
+  text-align: center;
+}
+#brochureDownload:hover  {
+  text-decoration: none;
+}
+#downloadImg {
+  padding-left: 14px;
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  h1 {
+    font-size: 80pt;
+  }
+  h2 {
+    font-size: 50pt
+  }
+  #brochureDownload {
+    font-size: 40px;
+  }
+  p {
+    font-size: 12pt;
+    text-align: center;
+  }
+  .landing {
+    min-height: 780px;
+    /* height: 100%; */
+  }
+  .subheading {
+    font-size: 30pt;
+    text-align: center;
+  }
+  .secondSection{
+    padding-top: 200px;
+  }
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  h1 {
+    font-size: 70pt;
+  }
+  h2 {
+    font-size: 40pt;
+  }
+  #brochureDownload {
+    font-size: 35px;
+  }
+  #downloadImg {
+    width: 75px;
+  }
+
+  .subheading {
+    font-size: 25pt;
+    text-align: center;
+  }
+ }
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  h1 {
+    font-size: 60pt;
+  }
+  .landing {
+    min-height: 780px;
+    /* height: 100%; */
+  }
+  h2, #brochureDownload {
+    font-size: 30px;
+  }
+  #downloadImg {
+    width: 70px;
+  }
+ }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  h1 {
+    font-size: 50pt;
+  }
+  .subheading {
+    font-size: 20pt;
+  }
+
+  h2, #brochureDownload {
+    font-size: 40px;
+  }
+  #downloadImg {
+    width: 70px;
+  }
+
+}
+ /* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .subheading {
+    font-size: 15pt;
+    text-align: center;
+  }
+  #brochureDownload {
+    font-size: 30px;
+  }
+  #downloadImg {
+    width: 60px;
+  }
+ }

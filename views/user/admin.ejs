@@ -1,0 +1,85 @@
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+  <link href="/stylesheets/adminStyle.css" rel="stylesheet">
+</head>
+
+<body>
+  <% include ../partials/scripts.ejs %>
+  <script type="text/javascript" src="/javascripts/partials/eventRequests.js">  </script>
+  <script type="text/javascript" src="/javascripts/partials/addProductsScript.js">  </script>
+  <script type="text/javascript" src="/javascripts/partials/addEventsScript.js">  </script>
+
+    <% include ../partials/menu.ejs %>
+
+
+
+      <div class="container-fluid navbarAllowance">
+        <h1>Admin</h1>
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-pills nav-fill">
+              <li class="nav-item">
+                <a class="nav-link active" id="v-pills-add-product-tab" data-toggle="pill" href="#v-pills-add-product" role="tab" aria-controls="v-pills-add-product" aria-selected="false">New Product</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="v-pills-add-event-tab" data-toggle="pill" href="#v-pills-add-event" role="tab" aria-controls="v-pills-add-event" aria-selected="false">New Event</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="v-pills-view-products-tab" data-toggle="pill" href="#v-pills-view-products" role="tab" aria-controls="v-pills-view-products" aria-selected="false">Products</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="v-pills-eventList-tab" data-toggle="pill" href="#v-pills-eventList" role="tab" aria-controls="v-pills-eventList" aria-selected="false">Events</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="v-pills-eventRequests-tab" data-toggle="pill" href="#v-pills-eventRequests" role="tab" aria-controls="v-pills-eventRequests" aria-selected="false">Event Requests</a>
+              </li>
+
+            </ul>
+          </div>
+            <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link active" id="v-pills-add-product-tab" data-toggle="pill" href="#v-pills-add-product" role="tab" aria-controls="v-pills-add-product" aria-selected="false">New Item</a>
+              <a class="nav-link" id="v-pills-view-products-tab" data-toggle="pill" href="#v-pills-view-products" role="tab" aria-controls="v-pills-view-products" aria-selected="false">Products</a>
+              <a class="nav-link" id="v-pills-eventList-tab" data-toggle="pill" href="#v-pills-eventList" role="tab" aria-controls="v-pills-eventList" aria-selected="false">Events</a>
+              <a class="nav-link" id="v-pills-eventRequests-tab" data-toggle="pill" href="#v-pills-eventRequests" role="tab" aria-controls="v-pills-eventRequests" aria-selected="false">Event Requests</a>
+            </div> -->
+
+        </div>
+        <hr>
+        <br>
+        <div class="row d-flex justify-content-center">
+
+          <div class="col-11">
+
+            <div class="tab-content" id="v-pills-tabContent">
+
+              <div class="tab-pane fade show active" id="v-pills-add-product" role="tabpanel" aria-labelledby="v-pills-add-product-tab">
+
+                <% include ../partials/admin/addProducts.ejs %>
+              </div>
+              <div class="tab-pane fade" id="v-pills-add-event" role="tabpanel" aria-labelledby="v-pills-add-event-tab">
+
+                <% include ../partials/admin/addEvents.ejs %>
+              </div>
+              <div class="tab-pane fade " id="v-pills-view-products" role="tabpanel" aria-labelledby="v-pills-view-products">
+                <% include ../partials/admin/productMaintenance.ejs %>
+              </div>
+              <div class="tab-pane fade" id="v-pills-eventList" role="tabpanel" aria-labelledby="v-pills-eventList-tab">
+                <% include ../partials/admin/eventMaintenance.ejs %>
+              </div>
+              <div class="tab-pane fade" id="v-pills-eventRequests" role="tabpanel" aria-labelledby="v-pills-eventRequests-tab">
+                <% include ../partials/admin/eventRequests.ejs %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+</body>
+
+</html>

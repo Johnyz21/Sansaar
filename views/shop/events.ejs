@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/scripts.ejs %>
+    <% include ../partials/menu.ejs %>
+
+
+      <div class="container-fluid navbarAllowance" >
+        <!-- <h1><%= title %></h1> -->
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-6">
+            <div class="alert alert-success text-center" <% if(noMessages) {%> hidden
+              <%} %> >
+                <%= successMessage %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-10">
+            <div class="card-columns">
+
+              <% events.forEach(function(event){%>
+                <div class="card">
+                  <!-- <div class="card-header">
+                    <p class="text-center">Event</p>
+                  </div> -->
+                  <img class="card-img-top" src="<%= event.imagePath %>" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title"> <%= event.title %> </h5>
+                    <p class="card-text">
+                      <%= event.description %>
+                    </p>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+
+
+                  </div>
+                  <div class="card-footer d-flex align-items-center justify-content-between">
+                    <div class="price"> £
+                      <%= event.price %>
+
+                    </div>
+
+                    <% if(login) {%>
+
+
+                      <% let userApproved = false %>
+                      <% event.verified.forEach(function(user){ %>
+
+                        <% if(user.equals(userId)) { %>
+                          <% userApproved = true %>
+                          <% } %>
+                      <%}) %>
+                      <% if(userApproved){ %>
+                        <a href="/shop/addEventToCart/<%= event.id%>" class="btn btn-success">Add event to cart</a>
+                        <% } else { %>
+                          <a href="/shop/eventSignup/<%= event.id%>" class="btn btn-success">Click to register</a>
+                          <%}%>
+                      <% } else { %>
+                        <a href="/user/signup" class="btn btn-success">Login to register</a>
+                      <%} %>
+
+                          <!-- <a href="/shop/addEventToCart/<%= event.id%>" class="btn btn-success">Add Event to cart</a> -->
+
+                  </div>
+                </div>
+                <% }) %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>

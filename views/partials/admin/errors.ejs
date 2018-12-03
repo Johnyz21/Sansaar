@@ -1,0 +1,83 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-4 justify-content-center d-flex flex-column">
+
+    <% if(productError.length > 0) { %>
+      <% productError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
+    <% if(eventError.length > 0) { %>
+      <% eventError.forEach( function (error){ %>
+          <div class="alert alert-danger" role="alert">
+              <%= error  %>
+          </div>
+        <% }) %>
+    <%}%>
+
+    <% if(nameError.length > 0) { %>
+      <% nameError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
+    <% if(descriptionError.length > 0) { %>
+        <% descriptionError.forEach( function (error){ %>
+          <div class="alert alert-danger" role="alert">
+            <%= error  %>
+          </div>
+      <% }) %>
+    <%}%>
+
+    <% if(priceError.length > 0) { %>
+      <% priceError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
+
+    <% if(fileFormatError.length > 0) { %>
+      <% fileFormatError.forEach( function (error){ %>
+          <div class="alert alert-danger" role="alert">
+              <%= error  %>
+          </div>
+        <% }) %>
+    <%}%>
+
+    <% if(fileError.length > 0) { %>
+      <% fileError.forEach( function (error){ %>
+          <div class="alert alert-danger" role="alert">
+              <%= error  %>
+          </div>
+        <% }) %>
+    <%}%>
+
+
+    <% if(fileUploadError.length > 0) { %>
+      <% fileUploadError.forEach( function (error){ %>
+          <div class="alert alert-danger" role="alert">
+              <%= error  %>
+          </div>
+        <% }) %>
+    <%}%>
+    <% if(startDateError.length > 0) { %>
+      <% startDateError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
+    <% if(endDateError.length > 0) { %>
+      <% endDateError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
+
+
+  </div>
+</div>
