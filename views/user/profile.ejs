@@ -13,7 +13,24 @@
       <div class="container navbarAllowance">
         <h1>User Profile</h1>
         <br>
+        <div class="row d-flex justify-content-center ">
+          <div class="col-8">
 
+            <form action="/user/updateProfile" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input class="form-control" type="email" name="email" value="<%= email %>">
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block" type="submit" name="button">Update Details</button>
+            </form>
+
+          </div>
+        </div>
         <h2 class="text-center">Order History</h2>
         <br>
         <% orders.forEach(function(order) { %>
@@ -33,7 +50,7 @@
               <small>Payment Id :
                 <%= order.paymentId %> </small>
             </li>
-            
+
             <% order.items.forEach(function(cartItem){ %>
               <li class="list-group-item d-flex justify-content-between align-items-center text-center">
 
@@ -53,7 +70,8 @@
               <% }) %>
                 <li class="list-group-item d-flex justify-content-center align-items-center flex-row-reverse text-center">
                   <div class="col-4">
-                  Total  £<%=order.cart.totalPrice %>
+                    Total £
+                    <%=order.cart.totalPrice %>
                   </div>
                 </li>
                 <!-- <li class="list-group-item d-flex justify-content-between align-items-center"> <strong> Total Price: £<%=order.cart.totalPrice %></strong></li> -->

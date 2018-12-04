@@ -30,12 +30,15 @@ h1 {
   text-align: center;
 }
 
+.nav-pills .nav-link {
+  color: #69626D;
+}
 .btn-success {
   border-color: #DADDD8;
   background-color: #DADDD8;
   color: #1C1C1C;
 }
-.btn-success:hover {
+.btn-success:hover , .nav-pills .nav-link.active  {
   color: #DADDD8;
   background-color: #69626D;
   border-color: #69626D;

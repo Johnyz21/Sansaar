@@ -3,8 +3,13 @@ const router = express.Router();
 const passport = require('passport');
 const csrf = require('csurf');
 const csrfProtection = csrf();
+const {
+  check,
+  validationResult
+} = require('express-validator/check');
 const Order = require('../../models/order');
 const Cart = require('../../models/cart');
+const User = require('../../models/user');
 // const ProductRequest = require('../../models/productRequest');
 
 router.use(csrfProtection);
@@ -23,10 +28,15 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
       order.items = cart.generateArray();
     });
     res.render('user/profile', {
-      orders: orders,  csrfToken: req.csrfToken()
+      orders: orders,
+      csrfToken: req.csrfToken(),
+      email: req.user.email
     });
   });
 
+
+  //
+  // });
   // Order.find({
   //   user: req.user
   // }, function(err, orders) {
@@ -46,6 +56,34 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
   // });
 });
 
+// router.get('/update',isLoggedIn, function(req,res,next){
+//   console.log('Working');
+//   res.redirect('/shoppingCart');
+// });
+router.post('/updateProfile', isLoggedIn, [check('email').not().isEmpty().isEmail()], function(req, res, next) {
+
+  console.log('-------');
+  console.log('-------');
+  console.log('-------');
+  console.log('-------');
+  console.log(req.user.id);
+  User.update({
+    _id: req.user._id
+  }, {
+    $set: {
+      email: req.body.email,
+    }
+  }, function(err, updatedUser) {
+    if (err) {
+      console.log(err);
+      res.redirect('/user');
+    } else {
+      console.log('Success')
+      req.flash('success', 'Email updated!');
+      res.redirect('/user');
+    }
+  });
+})
 router.get('/logout', function(req, res, next) {
   req.logout();
   res.redirect('/');
@@ -60,6 +98,7 @@ router.get('/logout', function(req, res, next) {
 //
 //
 // });
+
 /* router.use targets all requests
 Placed infront of all the routes where the user does not need to be logged in */
 router.use('/', notLoggedIn, function(req, res, next) {
