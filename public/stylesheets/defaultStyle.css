@@ -9,7 +9,8 @@
 }
 
 body {
-  background-color: #f7f4f1;
+  /* background-color: #f7f4f1; */
+  background-color: #2F2504;
   /* background-image: radial-gradient(#BCAF9C, #F9EEE0); */
 }
 
@@ -28,6 +29,13 @@ nav .nav-link {
 }
 h1 {
   text-align: center;
+  font-family: ArefRuqaaBold;
+
+}
+h2  {
+  font-family: ArefRuqaaBold;
+  color: black;
+  text-align: center;
 }
 
 .nav-pills .nav-link {
@@ -38,17 +46,52 @@ h1 {
   background-color: #DADDD8;
   color: #1C1C1C;
 }
-.btn-success:hover , .nav-pills .nav-link.active  {
+.btn-success:hover ,.btn-success.focus, .btn-success:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .nav-pills .nav-link.active  {
   color: #DADDD8;
   background-color: #69626D;
   border-color: #69626D;
 }
+.btn-success:not(:disabled):not(.disabled):active:focus{
+  box-shadow:0 0 0 0.2rem #DADDD8;
+}
+.btn-success:focus, .btn-success.focus {
+  box-shadow: 0 0 0 0.2rem #DADDD8;
+}
+
+.btn-primary {
+
+  color: white;
+  background-color: #69626D;
+  border-color: #69626D;
+}
+
+.btn-primary:hover {
+  border-color: rgb(24,22,24);
+  background-color: rgb(24,22,24);
+  color: white;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+  box-shadow:0 0 0 0.2rem rgb(24,22,24);
+}
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgb(24,22,24);
+}
+
 .price{
   font-weight: bold;
 }
 
 .navbarAllowance {
   margin-top: 80px;
+}
+.panelView{
+  background-color: #F9EEE0;
+  border-radius: 3px;
+  padding: 10px 15px;
+}
+.card{
+  box-shadow: 0px 0px 2px 3px #69626D;
 }
 /* .card {
   background-color: transparent;

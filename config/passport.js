@@ -65,7 +65,7 @@ passport.use('local.signin', new LocalStrategy({
     });
     return done(null, false , req.flash('error',messages) );
   }
-  User.findOne({'email' : email}, function(err,user){
+  User.findOne({'email' : email, 'disabled':false}, function(err,user){
     if(err){
       return done(err);
     }

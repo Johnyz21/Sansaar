@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 var userSchema = new Schema({
   email: {type: String, required: true},
   password : {type:String, required: true},
-  admin : {type: Boolean, required: true, default: false}
+  admin : {type: Boolean, required: true, default: false},
+  disabled : {type: Boolean, required: true, default : false}
 });
 userSchema.methods.encryptPassword = function(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);

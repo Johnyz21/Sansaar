@@ -11,7 +11,10 @@
     <% include ../partials/menu.ejs %>
 
 
-      <div class="container-fluid navbarAllowance">
+      <div class="d-flex container-fluid navbarAllowance justify-content-center">
+        <div class="col-md-11 panelView">
+
+
         <h1 > <%= title %></h1>
         <div class="row">
           <div class="alert alert-danger " <% if(noError) {%> hidden
@@ -110,6 +113,7 @@
                 </div>
               </div>
               <% }%>
+        </div>
         </div>
       </div>
 

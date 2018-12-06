@@ -15,7 +15,7 @@ const User = require('../../models/user');
 router.use(csrfProtection);
 
 router.get('/profile', isLoggedIn, function(req, res, next) {
-
+  var errors = req.flash('error');
   Promise.all([
     Order.find({
       user: req.user
@@ -30,7 +30,9 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
     res.render('user/profile', {
       orders: orders,
       csrfToken: req.csrfToken(),
-      email: req.user.email
+      email: req.user.email,
+      errors: errors,
+      userId : req.user._id
     });
   });
 
@@ -60,6 +62,27 @@ router.get('/profile', isLoggedIn, function(req, res, next) {
 //   console.log('Working');
 //   res.redirect('/shoppingCart');
 // });
+
+router.post('/disableUser',isLoggedIn, function(req,res,next){
+
+  User.update({
+    _id:req.user._id
+  }, {
+    $set: {
+      email : '',
+      disabled: true
+    }
+  }, function(err, disabledUser){
+    if(err){
+      req.flash('error', 'Unable to delete account, please try again!');
+      res.redirect('/user/profile');
+    } else {
+
+      res.redirect('/user/logout');
+    }
+  });
+});
+
 router.post('/updateProfile', isLoggedIn, [check('email').not().isEmpty().isEmail()], function(req, res, next) {
 
   console.log('-------');
@@ -76,7 +99,8 @@ router.post('/updateProfile', isLoggedIn, [check('email').not().isEmpty().isEmai
   }, function(err, updatedUser) {
     if (err) {
       console.log(err);
-      res.redirect('/user');
+      res.redirect('/user/profile');
+      req.flash('error', 'Unable to update your email address, please try again.');
     } else {
       console.log('Success')
       req.flash('success', 'Email updated!');
@@ -149,7 +173,12 @@ router.post('/signIn', passport.authenticate('local.signin', {
   }
 });
 
+router.get('/downloadPrivacyPolicy', function(req,res,next){
+  var file = __dirname + '/../../public/policies/Privacy_Notice_Effective_25_May_2018.docx';
+  console.log(file);
+  res.download(file,'Privacy_Notice_Effective_25_May_2018.docx');
 
+});
 
 module.exports = router;
 
