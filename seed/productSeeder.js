@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/shopping' , { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/sansaarDb' , { useNewUrlParser: true });
 
 var products = [
   new Product({
