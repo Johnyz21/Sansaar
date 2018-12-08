@@ -11,9 +11,13 @@ const Email = require('../../config/email');
 /* GET users listing. */
 
 paypal.configure({
-  'mode': 'sandbox', //sandbox or live
-  'client_id': 'AVCZeYrCux3K7_R-c9sx9Eq9V2NcxKmVw-h9-Zk6c-8MMq-JnMJxMZhlu_m9kTQw62sZSAH1CSlYrcHe',
-  'client_secret': 'ECL880EkDN_WKC9nvXrjlmZ3fi7GckEFiRoT0Zp23GwSzOFkhlSHFLH19TfbeCSirk2ok0LOTSG9787A'
+  /* Jonnys Sandbox */
+  // 'mode': 'sandbox',
+  // 'client_id': 'AVCZeYrCux3K7_R-c9sx9Eq9V2NcxKmVw-h9-Zk6c-8MMq-JnMJxMZhlu_m9kTQw62sZSAH1CSlYrcHe',
+  // 'client_secret': 'ECL880EkDN_WKC9nvXrjlmZ3fi7GckEFiRoT0Zp23GwSzOFkhlSHFLH19TfbeCSirk2ok0LOTSG9787A'
+  'mode': 'live',
+  'client_id': 'AdUxHKkkpm4x7X8pX-qdEf963Jdy35imPo0qHIl3We8k8GDnwBs4-422FJuQtR4-E68vw4GM4c6r1MlE',
+  'client_secret': 'EBG5kxrWvHBxhPmqME7mAHhR4zLaMhC9VwPHnIt836ihDzcoxARWvP_WKqS8VrMwxU3vOM0zlrPRUggT'
 });
 
 router.get('/',  function (req, res, next) {
