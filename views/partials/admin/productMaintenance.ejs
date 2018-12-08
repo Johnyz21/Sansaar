@@ -2,7 +2,7 @@
   <% products.forEach(function(product){ %>
     <div class="card">
       <form class="" action="/admin/updateProduct/<%= product.id%>" method="post">
-        <img class="card-img-top" src="<%= product.imagePath %>" alt="Card image cap">
+        <img class="card-img-top" src="<%= product.imagePath %>" alt="Product">
         <div class="card-body">
           <h5 class="card-title"> <%= product.title %> </h5>
 
