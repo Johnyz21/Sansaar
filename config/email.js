@@ -74,8 +74,8 @@ exports.eventConfirmationEmail = function(recipient, eventName) {
           '<p>Hey ' + recipient + ',</p>' +
           '</br>'+
           '<p>Your Registration for <strong>' + eventName +  '</strong> has been been approved:</p>' +
-
-          '<p> You are now able purchase the event online. Please do so to confirm your attendence</p> </br>'
+          '<p>Please download and fill in the attached word document with the relevant information</p>' +
+          '<p>You are now able purchase the event online. Please do so to confirm your attendence</p> </br>'
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
