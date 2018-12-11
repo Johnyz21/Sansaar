@@ -429,12 +429,12 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
   Event.update({
     _id: eventId
   }, {
-    // $addToSet: {
-    //   verified: users
-    // },
-    // $pullAll: {
-    //   applied: users
-    // }
+    $addToSet: {
+      verified: users
+    },
+    $pullAll: {
+      applied: users
+    }
   }, function(err, updatedEvent) {
     // console.log(updatedEvent);
     if (err) {
