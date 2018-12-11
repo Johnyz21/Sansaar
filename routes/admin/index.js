@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const Email = require('../../config/email');
 // var upload = multer({ dest: 'public/images/shop/' }).single('productImg');
 const {
   check,
@@ -418,7 +419,9 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
 router.post('/authoriseUsersForEvent', function(req, res, next) {
   // console.log(req.body);
   var eventId = req.body.eventId;
+  var eventTitle = req.body.eventTitle;
   var users = req.body.users;
+  var usersEmail = req.body.usersEmail;
 
   console.log(eventId);
   console.log(users);
@@ -426,18 +429,30 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
   Event.update({
     _id: eventId
   }, {
-    $addToSet: {
-      verified: users
-    },
-    $pullAll: {
-      applied: users
-    }
+    // $addToSet: {
+    //   verified: users
+    // },
+    // $pullAll: {
+    //   applied: users
+    // }
   }, function(err, updatedEvent) {
-    console.log(updatedEvent);
+    // console.log(updatedEvent);
     if (err) {
       // Add flash error message
       console.log(err);
+
     }
+    // console.log(users);
+    // for(var user in users){
+    //   console.log(user);
+    //   Email.eventConfirmationEmail(user.email,updatedEvent.title);
+    // }
+
+    usersEmail.forEach( async (userEmail) => {
+      // console.log(user);
+      await Email.eventConfirmationEmail(userEmail,eventTitle);
+    });
+
     res.redirect('/admin');
   });
 

@@ -26,7 +26,7 @@ exports.emailOrder = function(recipient, order){
    });
 
    var mailOptions = {
-     from: 'jonnyWillEmail21@gmail.com',
+     from: emailUsername,
      to: recipient,
      subject: 'Event Confirmation',
      html: '<h1> Sansaar Pilgrims </h1>' +
@@ -62,14 +62,18 @@ exports.eventConfirmationEmail = function(recipient, eventName) {
   });
 
   var mailOptions = {
-    from: 'jonnyWillEmail21@gmail.com',
+    from: emailUsername,
     to: recipient,
+    attachments: [{
+      filename: 'SansaarPilgrims-TourRegistrationForm.docx',
+      path: 'https://www.sansaaruk.com/docx/SansaarPilgrims-TourRegistrationForm.docx'
+    }],
     subject: 'Event Confirmation',
     html: '<h1> Sansaar Pilgrims </h1>' +
           '</br> ' +
-          '<p>Hey,</p>' +
+          '<p>Hey ' + recipient + ',</p>' +
           '</br>'+
-          '<p>Your Registration for ' + event +  'has been been approved:</p>' +
+          '<p>Your Registration for <strong>' + eventName +  '</strong> has been been approved:</p>' +
 
           '<p> You are now able purchase the event online. Please do so to confirm your attendence</p> </br>'
   };

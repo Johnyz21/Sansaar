@@ -15,6 +15,7 @@
             </thead>
             <tbody>
                 <input type="hidden" name="eventId" value="<%=event.id %>">
+                <input type="hidden" name="eventTitle" value="<%=event.title %>">
                 <% event.applied.forEach(function(user){ %>
                 <tr>
 
@@ -23,6 +24,7 @@
                     </td>
                     <td>
                       <%= user.email %>
+                      <input type="hidden" name="usersEmail[]" value="<%=user.email%>">
                     </td>
 
                     <td>

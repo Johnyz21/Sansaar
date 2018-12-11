@@ -121,8 +121,12 @@
                       Please take note of this number should you ever need to enquire about your orders: <%= userId %>
                     </div>
                     <div class="modal-footer">
-
+                      <form class="w-100" action="/user/disableUser" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button type="submit" class="btn btn-danger btn-block" name="button">Delete Account</button>
+                      </form>
+                        <!-- <button type="submit" class="btn btn-danger btn-block" name="button">Delete Account</button> -->
+
                     </div>
                   </div>
                 </div>
