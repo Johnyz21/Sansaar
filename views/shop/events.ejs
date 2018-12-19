@@ -24,6 +24,14 @@
         </div>
 
         <div class="row d-flex justify-content-center">
+          <div class="col-6">
+            <div class="alert alert-danger text-center" <% if(noErrors) {%> hidden
+              <%} %> >
+                <%= errorMessage %>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
           <div class="col-10">
             <div class="card-columns">
 
@@ -34,7 +42,11 @@
                   </div> -->
                   <img class="card-img-top" src="<%= event.imagePath %>" alt="Event">
                   <div class="card-body">
-                    <h5 class="card-title"> <%= event.title %> </h5>
+                    <h5 class="card-title"> <%= event.title %>
+                      <br>
+                      <small> <%= event.startDate.toLocaleDateString("en-GB") %>  - <%= event.endDate.toLocaleDateString("en-GB") %></small>
+                    </h5>
+
                     <p class="card-text">
                       <%= event.description %>
                     </p>
@@ -59,12 +71,16 @@
                           <% } %>
                       <%}) %>
                       <% if(userApproved){ %>
-                        <a href="/shop/addEventToCart/<%= event.id%>" class="btn btn-success">Add event to cart</a>
+                        <!-- <a href="/shop/addEventToCart/<%= event.id%>" class="btn btn-success">Add event to cart</a> -->
+
+                        <a href="/shop/eventRegistration/<%=event.id%>" class="btn btn-success">Complete registration</a>
+
+
                         <% } else { %>
-                          <a href="/shop/eventSignup/<%= event.id%>" class="btn btn-success">Click to register</a>
+                          <a href="/shop/eventSignup/<%= event.id%>" class="btn btn-success">Click to apply</a>
                           <%}%>
                       <% } else { %>
-                        <a href="/user/signup" class="btn btn-success">Login to register</a>
+                        <a href="/user/signup" class="btn btn-success">Login to apply</a>
                       <%} %>
 
                           <!-- <a href="/shop/addEventToCart/<%= event.id%>" class="btn btn-success">Add Event to cart</a> -->

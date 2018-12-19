@@ -28,11 +28,16 @@
 
           <ul class="list-group list-group-flush">
             <p class="text-center">Attendees</p>
-            <% event.attending.forEach(function(user){ %>
+
+            <% event.attending.forEach(function(userDetails){ %>
               <li class="list-group-item text-center">
                 <!-- ejs with user.email  -->
-                <%= user.email %>
+                <%= userDetails.firstName %>
+                <%= userDetails.surname %>
+                Mob:<%= userDetails.mobileNumber %>
+                Email: <%= userDetails.email %>
               </li>
+              <hr>
               <% }) %>
           </ul>
         </div>

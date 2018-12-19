@@ -11,6 +11,8 @@ const {
 const Product = require('../../models/product');
 const User = require('../../models/user');
 const Event = require('../../models/event');
+
+
 // const ProductRequest = require('../../models/productRequest');
 
 var storage = multer.diskStorage({ //multers disk storage settings
@@ -40,12 +42,15 @@ var upload = multer({ //multer settings
   }
 }).single('productImg');
 
+
+/* Error Messages are like this because (at the moment of creating this), body parser didn't work with Multer*/
 router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
   // console.log(req.user);
   Promise.all([
     Product.find({}),
     Event.find({}).populate('applied verified user attending')
   ]).then(([products, events]) => {
+    console.log(events);
     res.render('user/admin', {
       title: 'Admin',
       event: {},
@@ -64,31 +69,7 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
       startDateError: req.flash('startDateError')
     });
 
-  })
-  // Product.find()
-  //   .then(products =>{
-  //
-  //
-  //       res.render('user/admin',
-  //       { title: 'Admin',
-  //       products : products,
-  //       eventError: req.flash('eventError'),
-  //       productError:req.flash('productError'),
-  //       nameError: req.flash('nameError'),
-  //       fileError: req.flash('fileError'),
-  //        descriptionError: req.flash('descriptionError'),
-  //        priceError: req.flash('priceError'),
-  //        fileFormatError: req.flash('fileFormatError'),
-  //        typeError : req.flash('typeError'),
-  //         fileUploadError: req.flash('fileUploadError') });
-  //
-  //   });
-
-  // Product.find(function(err, products){
-  //   // console.log(products);
-  //   res.render('user/admin', { title: 'Admin' , products : products,productError:req.flash('productError'), nameError: req.flash('nameError'), fileError: req.flash('fileError'), descriptionError: req.flash('descriptionError'), priceError: req.flash('priceError'),fileFormatError: req.flash('fileFormatError'), requiredError : req.flash('requiredError'), fileUploadError: req.flash('fileUploadError') });
-  // });
-
+  });
 
 });
 router.get('/getEvent/:id', isLoggedIn, isAdmin, function(req, res, next) {
@@ -106,15 +87,18 @@ router.get('/getEvent/:id', isLoggedIn, isAdmin, function(req, res, next) {
 router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
   upload(req, res, function(err) {
     var multerError = false;
+    let error = false;
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
       req.flash('fileUploadError', err.message);
       multerError = true;
       console.log(err);
+      error = true;
     } else if (err) {
       // An unknown error occurred when uploading.
       req.flash('fileUploadError', 'An error occurred with the file');
       multerError = true;
+      error=true;
       console.log(err);
     }
 
@@ -124,7 +108,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
     let file = req.file;
     let startDate = req.body.startDate;
     let endDate = req.body.endDate;
-    let error = false;
+
 
     if (!endDate) {
       req.flash('endDateError', 'Please enter a end date');
@@ -232,15 +216,19 @@ router.post('/newProduct', isLoggedIn, isAdmin,
     // Uncomment below
     upload(req, res, function(err) {
       var multerError = false;
+      let error = false;
+
       if (err instanceof multer.MulterError) {
         // A Multer error occurred when uploading.
         req.flash('fileUploadError', err.message);
         multerError = true;
+        error = true;
         console.log(err);
       } else if (err) {
         // An unknown error occurred when uploading.
         req.flash('fileUploadError', 'An error occurred with the file');
         multerError = true;
+        error = true;
         console.log(err);
       }
 
@@ -248,7 +236,7 @@ router.post('/newProduct', isLoggedIn, isAdmin,
       let description = req.body.description;
       let price = req.body.price;
       let file = req.file;
-      let error = false;
+
 
       if (!productName) {
         req.flash('nameError', 'Please enter a product name');
@@ -402,12 +390,13 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
         description : req.body.description,
         price: req.body.price
       }
-    }, function(err, updatedEvent){
-      if(err){
-        //validation message
-        console.log(err);
-      }
-      req.flash('success','Updated Event');
+    }).exec((updatedEvent) => {
+
+        req.flash('success','Updated Event');
+        res.redirect('/admin');
+
+    }, (error) => {
+      req.flash('error','Error occurred updating event');
       res.redirect('/admin');
     });
   }
@@ -420,41 +409,49 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
   // console.log(req.body);
   var eventId = req.body.eventId;
   var eventTitle = req.body.eventTitle;
-  var users = req.body.users;
-  var usersEmail = req.body.usersEmail;
+  var userIds = req.body.userIds;
 
-  console.log(eventId);
-  console.log(users);
-
-  Event.update({
-    _id: eventId
-  }, {
-    $addToSet: {
-      verified: users
-    },
-    $pullAll: {
-      applied: users
-    }
-  }, function(err, updatedEvent) {
-    // console.log(updatedEvent);
-    if (err) {
-      // Add flash error message
-      console.log(err);
+  User.find({
+    '_id' : {
+      $in :
+        userIds
 
     }
-    // console.log(users);
-    // for(var user in users){
-    //   console.log(user);
-    //   Email.eventConfirmationEmail(user.email,updatedEvent.title);
-    // }
 
-    usersEmail.forEach( async (userEmail) => {
-      // console.log(user);
-      await Email.eventConfirmationEmail(userEmail,eventTitle);
+  }).then( (users) => {
+
+    var usersEmail = [];
+
+    users.forEach((user) => {
+      usersEmail.push(user.email)
     });
 
+    Event.update({
+      _id: eventId
+    }, {
+      $addToSet: {
+        verified: users
+      },
+      $pullAll: {
+        applied: users
+      }
+    }, function(err, updatedEvent) {
+      // console.log(updatedEvent);
+      if (err) {
+        // Add flash error message
+        console.log(err);
+      }
+
+      Email.eventConfirmationEmail(usersEmail,eventTitle);
+      res.redirect('/admin');
+    });
+
+  }).catch( (errors) => {
+    console.log('Error!!!!');
+    console.log(errors);
     res.redirect('/admin');
   });
+
 
 
   // var updateEvents = req.body.updateEvents;

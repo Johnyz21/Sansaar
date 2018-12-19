@@ -7,7 +7,37 @@
 //   'client_secret': 'ECL880EkDN_WKC9nvXrjlmZ3fi7GckEFiRoT0Zp23GwSzOFkhlSHFLH19TfbeCSirk2ok0LOTSG9787A'
 // });
 
-exports.createPaypalPaymentJson = function(cart){
+exports.eventPaypalPaymentJson = function(event){
+
+  var create_payment_json = {
+      "intent": "sale",
+      "payer": {
+          "payment_method": "paypal"
+      },
+      "redirect_urls": {
+          "return_url": "http://localhost:3000/shop/successfulEventPayment",
+          "cancel_url": "http://localhost:3000/shop/cancelPayment"
+      },
+      "transactions": [{
+          "item_list": {
+            "items" : [{
+              "name" : event._id,
+              "sku" : "event",
+              "price" : event.price,
+              "currency" : "GBP",
+              "quantity" : 1
+            }]
+          },
+          "amount": {
+              "currency": "GBP",
+              "total": event.price
+          },
+          "description": "This is the payment description."
+      }]
+  };
+  return create_payment_json;
+}
+exports.cartPaypalPaymentJson = function(cart){
 
   var payPalItemList = [];
 
@@ -21,7 +51,7 @@ exports.createPaypalPaymentJson = function(cart){
           "payment_method": "paypal"
       },
       "redirect_urls": {
-          "return_url": "http://localhost:3000/shop/successfulPayment",
+          "return_url": "http://localhost:3000/shop/successfulCartPayment",
           "cancel_url": "http://localhost:3000/shop/cancelPayment"
       },
       "transactions": [{

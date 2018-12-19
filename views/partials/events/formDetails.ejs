@@ -1,0 +1,105 @@
+<form action="/shop/purchaseEvent/<%= eventId %>" method="post">
+  <h1> Registration for - <%= eventTitle %></h1>
+  <br>
+  <h2>Traveller Details</h2>
+  <br>
+  <input type="hidden" name="eventTitle" value="<%=eventTitle%>">
+  <div class="form-row justify-content-center align-items-baseline">
+    <div class="form-group col-sm-12 col-md-4">
+      <label for="firstName">First Name*</label>
+      <input name="firstName" type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="Name">
+    </div>
+    <div class="form-group col-sm-12 col-md-4">
+      <label for="firstName">Middle Name</label>
+      <input name="middleName" type="text" class="form-control" id="middleName" aria-describedby="middleName" placeholder="Middle">
+    </div>
+    <div class="form-group col-sm-12 col-md-4">
+      <label for="surname">Surname*</label>
+      <input name="surname" type="text" class="form-control" id="surname" aria-describedby="surname" placeholder="Surname">
+    </div>
+  </div>
+
+
+  <div class="form-group ">
+    <label for="dob">DOB*</label>
+    <input name="dob" type="date" class="form-control" id="dob" aria-describedby="dob" placeholder="DOB">
+  </div>
+
+  <div class="form-group">
+    <label for="gender">Gender*</label>
+    <select class="form-control" name="gender" id="gender">
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+  </div>
+
+  <h2>Passport</h2>
+  <br>
+  <div class="form-group ">
+    <label for="passportNumber">Passport Number*</label>
+    <input name="passportNumber" type="number" class="form-control" id="passportNumber" aria-describedby="passportNumber">
+  </div>
+  <div class="form-group ">
+    <label for="passportExpiry">Passport Expiry*</label>
+    <input name="passportExpiry" type="date" class="form-control" id="passportExpiry" aria-describedby="passportExpiry" placeholder="expiry">
+  </div>
+
+  <h2>Permanent Address</h2>
+  <br>
+  <div class="form-group ">
+    <label for="phoneNumber">Phone number*</label>
+    <input name="phoneNumber" type="number" class="form-control" id="phoneNumber" aria-describedby="phoneNumber">
+  </div>
+  <div class="form-group ">
+    <label for="mobileNumber">Mobile number*</label>
+    <input name="mobileNumber" type="number" class="form-control" id="mobileNumber" aria-describedby="mobileNumber">
+  </div>
+  <div class="form-group ">
+    <label for="faxNumber">Fax number</label>
+    <input name="faxNumber" type="number" class="form-control" id="faxNumber" aria-describedby="faxNumber">
+  </div>
+  <div class="form-group ">
+    <label for="permanentEmail">Email*</label>
+    <input name="permanentEmail" type="email" class="form-control" id="permanentEmail" aria-describedby="permanentEmail">
+  </div>
+  <h2>Emergency Contact</h2>
+  <br>
+  <div class="form-group ">
+    <label for="emergencyContactName">Name*</label>
+    <input name="emergencyContactName" type="name" class="form-control" id="emergencyContactName" aria-describedby="emergencyContactName">
+  </div>
+  <div class="form-group ">
+    <label for="emergencyContactRelationship">Relationship*</label>
+    <input name="emergencyContactRelationship" type="text" class="form-control" id="emergencyContactRelationship" aria-describedby="emergencyContactRelationship">
+  </div>
+  <div class="form-group ">
+    <label for="emergencyContactPhone">Phone Number*</label>
+    <input name="emergencyContactPhone" type="name" class="form-control" id="emergencyContactPhone" aria-describedby="emergencyContactPhone">
+  </div>
+  <div class="form-group ">
+    <label for="emergencyContactEmail">Email Address*</label>
+    <input name="emergencyContactEmail" type="name" class="form-control" id="emergencyContactEmail" aria-describedby="emergencyContactEmail">
+  </div>
+  <h2>Other Details</h2>
+  <br>
+  <div class="form-group">
+    <label for="travelIndependently">I declare that I am fit to travel independently</label>
+    <select class="form-control" name="travelIndependently">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select>
+    <br>
+    <small>
+    Please bring your medical records in the event of a medical emergency.
+    Seek advice from your physician on travel vaccines.
+  </small>
+  </div>
+  <h2>Dietary Restrictions</h2>
+  <br>
+  <small>Please note dietary allergies, restrictions and special diets </small>
+  <div class="form-group">
+    <textarea class="form-control" row="10" name="dietaryRestrictions"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Purchase Event</button>
+</form>

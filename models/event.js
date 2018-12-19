@@ -13,7 +13,7 @@ var eventSchema = new Schema({
   }],
   attending: [{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'EventRegistrationDetails'
   }],
   imagePath: {
     type: String,
