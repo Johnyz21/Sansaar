@@ -7,7 +7,7 @@ const paypalHelper = require('../../config/paypalHelper');
 const Order = require('../../models/order');
 const Event = require('../../models/event');
 const Email = require('../../config/email');
-const EventRegistrationDetails = require('../../models/EventRegistrationDetails');
+const EventRegistrationDetails = require('../../models/eventRegistrationDetails');
 const {
   check,
   validationResult
