@@ -31,8 +31,8 @@ app.set('view engine', 'ejs');
 app.use(helmet());
 app.use(compression());
 app.use(logger('dev'));
-app.use(bodyParser.json({limit : '3mb'}));
-app.use(bodyParser.urlencoded({ limit:'3mb', extended: true }));
+app.use(bodyParser.json();
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(validator());
 app.use(cookieParser());
 app.use(session({
