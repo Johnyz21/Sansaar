@@ -38,6 +38,11 @@ var eventSchema = new Schema({
   endDate: {
     type: Date,
     required: true
+  },
+  disabled : {
+    type: Boolean,
+    required: true,
+    default : false
   }
 });
 
