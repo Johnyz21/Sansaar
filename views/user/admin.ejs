@@ -22,8 +22,28 @@
 
       <div class="container-fluid navbarAllowance d-flex justify-content-center">
 
+
+
         <div class="panelView col-11 ">
           <h1>Admin</h1>
+          <% if(authoriseEventSuccess.length > 0) { %>
+            <div class="col align-items-center d-flex flex-column">
+            <% authoriseEventSuccess.forEach( function (success){ %>
+              <div class="alert alert-success" role="alert">
+                <%= success  %>
+              </div>
+            <% }) %>
+            </div>
+          <%}%>
+          <% if(authoriseEventError.length > 0) { %>
+            <div class="col align-items-center d-flex flex-column">
+            <% authoriseEventError.forEach( function (error){ %>
+              <div class="alert alert-danger" role="alert">
+                <%= error  %>
+              </div>
+            <% }) %>
+            </div>
+          <%}%>
           <div class="row">
             <div class="col">
               <ul class="nav nav-pills nav-fill">
@@ -60,6 +80,7 @@
             <div class="col-11">
 
               <div class="tab-content" id="v-pills-tabContent">
+
 
                 <div class="tab-pane fade show active" id="v-pills-add-product" role="tabpanel" aria-labelledby="v-pills-add-product-tab">
 

@@ -66,7 +66,10 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
       fileFormatError: req.flash('fileFormatError'),
       fileUploadError: req.flash('fileUploadError'),
       endDateError: req.flash('endDateError'),
-      startDateError: req.flash('startDateError')
+      startDateError: req.flash('startDateError'),
+      authoriseEventSuccess: req.flash('authoriseEventSuccess'),
+      authoriseEventError: req.flash('authoriseEventError')
+
     });
 
   });
@@ -429,26 +432,38 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
     Event.update({
       _id: eventId
     }, {
-      $addToSet: {
-        verified: users
-      },
-      $pullAll: {
-        applied: users
-      }
+      // $addToSet: {
+      //   verified: users
+      // },
+      // $pullAll: {
+      //   applied: users
+      // }
     }, function(err, updatedEvent) {
       // console.log(updatedEvent);
       if (err) {
         // Add flash error message
-        console.log(err);
+        req.flash('authoriseEventError','Unable to update event.' )
+        res.redirect('/admin');
+        // console.log(err);
       }
 
-      Email.eventConfirmationEmail(usersEmail,eventTitle);
-      res.redirect('/admin');
+      Email.eventConfirmationEmail(usersEmail,eventTitle).then( (resolve) => {
+
+        // console.log(resolve);
+        req.flash('authoriseEventSuccess', 'Successfully notified users by email');
+        res.redirect('/admin');
+      }, (error) => {
+        // console.log(error);
+        req.flash('authoriseEventError','Event updated. Unable to email: ' + error + ', please do so manually.' )
+        res.redirect('/admin');
+      });
+
+
     });
 
   }).catch( (errors) => {
     console.log('Error!!!!');
-    console.log(errors);
+    // console.log(errors);
     res.redirect('/admin');
   });
 
