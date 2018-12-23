@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
   var successMessage = req.flash('success')[0];
   var errorMessage = req.flash('errors')[0];
 
-  Product.find(function(err, products) {
+  Product.find({disabled : false},function(err, products) {
     // console.log(products);
     res.render('shop/products', {
       title: 'Products',
@@ -49,7 +49,7 @@ router.get('/events', function(req, res, next) {
   var successMessage = req.flash('success')[0];
   var errorMessage = req.flash('errors')[0];
 
-  Event.find({}, function(err, events) {
+  Event.find({disabled:false}, function(err, events) {
 
     if (req.isAuthenticated()) {
       res.render('shop/events', {

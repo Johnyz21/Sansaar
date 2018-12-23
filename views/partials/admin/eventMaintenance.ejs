@@ -10,7 +10,7 @@
           <input class="form-control mb-3" type="text" name="title" value="<%= event.title %>">
           <small class="font-weight-light pb-2">Description</small>
           <p class="card-text">
-            <textarea class="form-control" name="description"  name="description"><%= event.description %></textarea>
+            <textarea class="form-control" name="description" name="description"><%= event.description %></textarea>
           </p>
           <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
 
@@ -20,6 +20,11 @@
               <span class="input-group-text">£</span>
             </div>
             <input type="number" step="0.01" name="price" class="form-control" value="<%= event.price %>">
+          </div>
+          <br>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="disabled" name="disabled" "<%if (event.disabled ) {%> checked <% } %>">
+            <label class="form-check-label" for="disabled" >Disable</label>
           </div>
           <br>
           <button type="submit" name="button" class="btn btn-success">Update</button>
@@ -33,9 +38,11 @@
               <li class="list-group-item text-center">
                 <!-- ejs with user.email  -->
                 <%= userDetails.firstName %>
-                <%= userDetails.surname %>
-                Mob:<%= userDetails.mobileNumber %>
-                Email: <%= userDetails.email %>
+                  <%= userDetails.surname %>
+                    Mob:
+                    <%= userDetails.mobileNumber %>
+                      Email:
+                      <%= userDetails.email %>
               </li>
               <hr>
               <% }) %>

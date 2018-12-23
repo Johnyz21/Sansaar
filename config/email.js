@@ -85,6 +85,7 @@ exports.eventConfirmationEmail = async function(recipients, eventName) {
 
       transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
+          console.log(error);
           reject(recipient);
         } else {
           resolve(recipient);
@@ -97,19 +98,24 @@ exports.eventConfirmationEmail = async function(recipients, eventName) {
   // Loops through recipients and calls the sendMail function
   for (const recipient of recipients) {
     await sendMail(recipient).then((success) => {
-        // console.log(success);
+        console.log('success');
+        console.log(success);
         emailInfo.sent.push(success)
       },
       (error) => {
-        // console.log(error);
+        console.log('error mailing');
+        console.log(error);
         emailInfo.unsent.push(error);
       });
   }
 
-  return new Promise(function(reject,resolve){
+  return new Promise(function(resolve,reject){
+
     if(emailInfo.unsent.length > 0){
+      console.log('failedc');
       reject(emailInfo.unsent);
     } else {
+      console.log('resolved!');
       resolve(emailInfo.sent);
     }
   });

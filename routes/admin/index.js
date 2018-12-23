@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const Email = require('../../config/email');
+const CustomStorage = require('../../config/customMulterStorage');
 // var upload = multer({ dest: 'public/images/shop/' }).single('productImg');
 const {
   check,
@@ -15,14 +16,21 @@ const Event = require('../../models/event');
 
 // const ProductRequest = require('../../models/productRequest');
 
-var storage = multer.diskStorage({ //multers disk storage settings
+// var storage = multer.diskStorage({ //multers disk storage settings
+//   destination: function(req, file, cb) {
+//     cb(null, './public/images/shop/')
+//   },
+//   filename: function(req, file, cb) {
+//     var datetimestamp = Date.now();
+//     // cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+//     cb(null,file.originalname);
+//   }
+// });
+
+var storage = CustomStorage({
   destination: function(req, file, cb) {
-    cb(null, './public/images/shop/')
-  },
-  filename: function(req, file, cb) {
-    var datetimestamp = Date.now();
-    // cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
-    cb(null,file.originalname);
+    // console.log(file);
+    cb(null, './public/images/shop/' + file.originalname)
   }
 });
 
@@ -32,7 +40,7 @@ var upload = multer({ //multer settings
     var ext = path.extname(file.originalname).toLowerCase();
     if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
       req.flash('fileFormatError', 'File formats accepted: pngs, jpg, gifs and jpeg');
-      console.log('--------MADNESS------');
+      // console.log('--------MADNESS------');
       return callback(new Error('Only images are allowed'))
     }
     callback(null, true)
@@ -50,7 +58,7 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
     Product.find({}),
     Event.find({}).populate('applied verified user attending')
   ]).then(([products, events]) => {
-    console.log(events);
+    // console.log(events);
     res.render('user/admin', {
       title: 'Admin',
       event: {},
@@ -101,7 +109,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
       // An unknown error occurred when uploading.
       req.flash('fileUploadError', 'An error occurred with the file');
       multerError = true;
-      error=true;
+      error = true;
       console.log(err);
     }
 
@@ -162,7 +170,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
       });
     } else {
 
-      console.log('------EVENT------');
+      // console.log('------EVENT------');
 
       var event = new Event({
         imagePath: '/images/shop/' + req.file.filename,
@@ -220,7 +228,7 @@ router.post('/newProduct', isLoggedIn, isAdmin,
     upload(req, res, function(err) {
       var multerError = false;
       let error = false;
-
+      // console.log(req.file);
       if (err instanceof multer.MulterError) {
         // A Multer error occurred when uploading.
         req.flash('fileUploadError', err.message);
@@ -294,7 +302,7 @@ router.post('/newProduct', isLoggedIn, isAdmin,
           if (err) {
             req.flash('productError', 'The product was not added');
             // res.redirect('/admin');
-            res.render('partials/admin/addEvents', {
+            res.render('partials/admin/addProducts', {
               layout: false,
               success: req.flash('success'),
               eventError: req.flash('eventError'),
@@ -311,7 +319,7 @@ router.post('/newProduct', isLoggedIn, isAdmin,
           }
           req.flash('success', 'Product added');
           // res.redirect('/shop');
-          res.render('partials/admin/addEvents', {
+          res.render('partials/admin/addProducts', {
             layout: false,
             success: req.flash('success'),
             eventError: req.flash('eventError'),
@@ -334,31 +342,33 @@ router.post('/newProduct', isLoggedIn, isAdmin,
 router.post('/updateProduct/:id', isLoggedIn, isAdmin, [
   check('title').not().isEmpty().trim().escape().withMessage('Please enter a title'),
   check('price').not().isEmpty().trim().isNumeric().withMessage('Please enter a price')
-], function(req,res,next){
+], function(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // return res.status(422).json({ errors: errors.array() });
-    errors.array().forEach( error => {
+    errors.array().forEach(error => {
       console.log(error.msg);
-        req.flash('productError', error.msg);
+      req.flash('productError', error.msg);
     });
 
     res.redirect('/admin');
   } else {
+    var disabled = req.body.disabled ? true : false;
     Product.update({
       _id: req.params.id
     }, {
       $set: {
         title: req.body.title,
-        description : req.body.description,
-        price: req.body.price
+        description: req.body.description,
+        price: req.body.pricel,
+        disabled: disabled
       }
-    }, function(err, updatedEvent){
-      if(err){
+    }, function(err, updatedEvent) {
+      if (err) {
         //validation message
         console.log(err);
       }
-      req.flash('success','Updated Product');
+      req.flash('success', 'Updated Product');
       res.redirect('/admin');
     });
 
@@ -372,9 +382,9 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     // return res.status(422).json({ errors: errors.array() });
-    errors.array().forEach( error => {
+    errors.array().forEach(error => {
       console.log(error.msg);
-        req.flash('eventError', error.msg);
+      req.flash('eventError', error.msg);
     });
 
 
@@ -385,21 +395,24 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
     // var description = req.body.description;
     // var price = req.body.price;
 
+    var disabled = req.body.disabled ? true : false;
+
     Event.update({
       _id: req.params.id
     }, {
       $set: {
         title: req.body.title,
-        description : req.body.description,
-        price: req.body.price
+        description: req.body.description,
+        price: req.body.price,
+        disabled: disabled
       }
     }).exec((updatedEvent) => {
-
-        req.flash('success','Updated Event');
-        res.redirect('/admin');
+      console.log(updatedEvent);
+      req.flash('success', 'Updated Event');
+      res.redirect('/admin');
 
     }, (error) => {
-      req.flash('error','Error occurred updating event');
+      req.flash('error', 'Error occurred updating event');
       res.redirect('/admin');
     });
   }
@@ -415,13 +428,12 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
   var userIds = req.body.userIds;
 
   User.find({
-    '_id' : {
-      $in :
-        userIds
+    '_id': {
+      $in: userIds
 
     }
 
-  }).then( (users) => {
+  }).then((users) => {
 
     var usersEmail = [];
 
@@ -432,36 +444,36 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
     Event.update({
       _id: eventId
     }, {
-      // $addToSet: {
-      //   verified: users
-      // },
-      // $pullAll: {
-      //   applied: users
-      // }
+      $addToSet: {
+        verified: users
+      },
+      $pullAll: {
+        applied: users
+      }
     }, function(err, updatedEvent) {
       // console.log(updatedEvent);
       if (err) {
         // Add flash error message
-        req.flash('authoriseEventError','Unable to update event.' )
+        req.flash('authoriseEventError', 'Unable to update event.')
         res.redirect('/admin');
         // console.log(err);
       }
 
-      Email.eventConfirmationEmail(usersEmail,eventTitle).then( (resolve) => {
+      Email.eventConfirmationEmail(usersEmail, eventTitle).then((resolve) => {
 
         // console.log(resolve);
-        req.flash('authoriseEventSuccess', 'Successfully notified users by email');
+        req.flash('authoriseEventSuccess', 'Successfully notified user(s) by email');
         res.redirect('/admin');
       }, (error) => {
         // console.log(error);
-        req.flash('authoriseEventError','Event updated. Unable to email: ' + error + ', please do so manually.' )
+        req.flash('authoriseEventError', 'Event updated. Unable to email: ' + error + ', please do so manually.')
         res.redirect('/admin');
       });
 
 
     });
 
-  }).catch( (errors) => {
+  }).catch((errors) => {
     console.log('Error!!!!');
     // console.log(errors);
     res.redirect('/admin');

@@ -21,6 +21,11 @@
             <input type="number" name="price" step="0.01" class="form-control" value="<%= product.price %>">
           </div>
           <br>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="disabled" name="disabled" "<%if (product.disabled ) {%> checked <% } %>">
+            <label class="form-check-label" for="disabled" >Disable</label>
+          </div>
+          <br>
           <button type="submit" name="button" class="btn btn-success">Update</button>
         </div>
       </form>
