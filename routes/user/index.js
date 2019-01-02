@@ -174,9 +174,9 @@ router.post('/signIn', passport.authenticate('local.signin', {
 });
 
 router.get('/downloadPrivacyPolicy', function(req,res,next){
-  var file = __dirname + '/../../public/policies/Privacy_Notice_Effective_25_May_2018.docx';
+  var file = __dirname + '/../../public/policies/Privacy_Notice_Effective_25_May_2018.pdf';
   console.log(file);
-  res.download(file,'Privacy_Notice_Effective_25_May_2018.docx');
+  res.download(file,'Privacy_Notice_Effective_25_May_2018.pdf');
 
 });
 

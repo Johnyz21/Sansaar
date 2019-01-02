@@ -1,5 +1,6 @@
 const fs = require('fs')
 // const Jimp = require('jimp');
+const gm = require('gm');
 
 function getDestination (req, file, cb) {
   cb(null, '/dev/null')
@@ -28,7 +29,9 @@ MyCustomStorage.prototype._handleFile = function _handleFile (req, file, cb) {
 
     var outStream = fs.createWriteStream(path);
     console.log(file);
+    console.log(path);
     file.stream.pipe(outStream);
+    // gm('./public/images/shop/resized/'+file.originalname).resize('200','200').stream().pipe(outStream);
     outStream.on('error', cb);
     outStream.on('finish', function () {
       cb(null, {

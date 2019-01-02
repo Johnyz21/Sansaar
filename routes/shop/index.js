@@ -183,7 +183,7 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
               if (error) {
                 // Error sending paypal JSON
                 console.log("error creating payment, normally to do with JSON")
-                console.log(error.response.details);
+                // -> Paypal error, doesnt work with no internet connection // console.log(error.response.details);
                 req.flash('errors', 'Trouble connecting with paypal, please try again');
                 res.redirect("/shop/events");
                 // throw error;

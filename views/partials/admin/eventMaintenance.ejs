@@ -27,22 +27,18 @@
             <label class="form-check-label" for="disabled" >Disable</label>
           </div>
           <br>
-          <button type="submit" name="button" class="btn btn-success">Update</button>
+          <button type="submit" name="button" class="btn btn-block btn-success">Update</button>
           <br>
           <br>
 
           <ul class="list-group list-group-flush">
-            <p class="text-center">Attendees</p>
+            <p class="text-center">Attendees Email</p>
 
             <% event.attending.forEach(function(userDetails){ %>
               <li class="list-group-item text-center">
                 <!-- ejs with user.email  -->
-                <%= userDetails.firstName %>
-                  <%= userDetails.surname %>
-                    Mob:
-                    <%= userDetails.mobileNumber %>
-                      Email:
-                      <%= userDetails.email %>
+
+                 <%= userDetails.email %>
               </li>
               <hr>
               <% }) %>
@@ -50,6 +46,9 @@
         </div>
       </form>
 
+      <form class="d-flex justify-content-center" action="/admin/attendeesDetails/<%= event.id %>" method="post">
+        <button type="submit" name="button" class="btn btn-success">Download attendees details</button>
+      </form>
     </div>
     <% }) %>
 </div>

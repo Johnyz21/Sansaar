@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const officegen = require('officegen');
 const Email = require('../../config/email');
 const CustomStorage = require('../../config/customMulterStorage');
 // var upload = multer({ dest: 'public/images/shop/' }).single('productImg');
@@ -412,7 +413,7 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
       res.redirect('/admin');
 
     }, (error) => {
-      req.flash('error', 'Error occurred updating event');
+      req.flash('eventError', 'Error occurred updating event');
       res.redirect('/admin');
     });
   }
@@ -421,7 +422,7 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
 
 });
 
-router.post('/authoriseUsersForEvent', function(req, res, next) {
+router.post('/authoriseUsersForEvent',isLoggedIn, isAdmin, function(req, res, next) {
   // console.log(req.body);
   var eventId = req.body.eventId;
   var eventTitle = req.body.eventTitle;
@@ -474,36 +475,9 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
     });
 
   }).catch((errors) => {
-    console.log('Error!!!!');
-    // console.log(errors);
+    req.flash('eventError', 'Error occurred updating event');
     res.redirect('/admin');
   });
-
-
-
-  // var updateEvents = req.body.updateEvents;
-  // var eventId = Object.keys(updateEvents);
-  // // console.log(eventId);
-  // for(var eventId in updateEvents){
-  //   if (!updateEvents.hasOwnProperty(eventId)) continue;
-  //
-  //   if( updateEvents[eventId] instanceof Array){
-  //     var users = updateEvents[eventId]
-  //     users.forEach(function(userId){
-  //       console.log(userId)
-  //       // Update event ( with id: eventId), push the users 'verified' attribute of the event
-  //       Event.update({ _id: eventId}, { $addToSet : { applied: users} });
-  //     })
-  //   } else {
-  //     var user = updateEvents[eventId]
-  //     // Single user
-  //     console.log(user);
-  //     // res.redirect('/admin');
-  //     // Update event ( with id: eventId), push the user 'verified' attribute of the event
-  //   }
-  // }
-
-
 });
 // router.post('/updateProductRequests', function(req,res,next){
 //
@@ -529,6 +503,76 @@ router.post('/authoriseUsersForEvent', function(req, res, next) {
 //
 //   // res.redirect('/admin');
 // });
+
+router.post('/attendeesDetails/:id',isLoggedIn, isAdmin, function(req, res, next) {
+
+  var eventId = req.params.id;
+  // Promise.all([
+  //   Event.findById(eventId).populate('applied'),
+  // ])
+  Event.findById(eventId).populate('attending').then(event => {
+    var docx = officegen('docx');
+    docx.setDocSubject('...');
+    docx.setDescription('Attendee Details');
+
+
+    for(var i = 0; i < event.attending.length; i++){
+      let pObj = docx.createP ();
+      console.log(event.attending[i]);
+      let userDetails = event.attending[i]
+      pObj.addText ( 'Name: ' + userDetails.firstName + ' ' + userDetails.middleName + ' '+ userDetails.surname, { bold: true, underline: false, font_size: 15 } );
+      pObj.addLineBreak ();
+      pObj.addText('D.O.B.', {font_size:12, bold: true});
+      pObj.addText( userDetails.dob.toLocaleString('en-GB'), {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Gender: ', {font_size:12, bold: true});
+      pObj.addText(  userDetails.gender, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Passport Number: ', {font_size:12, bold: true});
+      pObj.addText(''+ userDetails.passportNumber, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Passport Expiry: ', {font_size:12, bold: true});
+      pObj.addText( userDetails.passportExpiry.toLocaleString('en-GB'), {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Mobile Number: ', {font_size:12, bold: true});
+      pObj.addText( ''+ userDetails.mobileNumber, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Email: ', {font_size:12, bold: true});
+      pObj.addText(  userDetails.email, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Emergency Contact: ', {font_size:12, bold: true});
+      pObj.addText(userDetails.emergencyContactName, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Emergency Contact Relationship: ', {font_size:12, bold: true});
+      pObj.addText(userDetails.emergencyContactRelationship, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Emergency Contact Phone: ', {font_size:12, bold: true});
+      pObj.addText( ' ' + userDetails.emergencyContactPhone, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Emergency Email Number: ', {font_size:12, bold: true});
+      pObj.addText( userDetails.emergencyContactEmail, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Travel Independently: ', {font_size:12, bold: true});
+      pObj.addText( ''+ userDetails.travelIndependently, {font_size: 12 });
+      pObj.addLineBreak ();
+      pObj.addText('Dietary Resitrctions: ', {font_size:12, bold: true});
+      pObj.addText(userDetails.dietaryRestrictions, {font_size: 12 });
+      pObj.addHorizontalLine ();
+    }
+    // console.log(event);
+    // console.log(event.attending);
+    res.writeHead(200, {
+      "Content-Type": "application/vnd.openxmlformats-officedocument.documentml.document",
+      'Content-disposition': 'attachment; filename=eventAttendence.docx'
+    });
+    docx.generate(res);
+
+  },
+(error) => {
+  req.flash('eventError', 'Error downloading attendee details');
+  res.redirect('/admin');
+});
+});
 module.exports = router;
 
 function isLoggedIn(req, res, next) {
