@@ -8,12 +8,20 @@
           <!-- <h2 class="card-title"> <%= event.title %> </h2> -->
           <small class="font-weight-light pb-2">Title</small>
           <input class="form-control mb-3" type="text" name="title" value="<%= event.title %>">
+
+          <small class="font-weight-light pb-2">Participants</small>
+          <input type="number" step="1" name="participants" class="form-control mb-3" value="<%= event.participants %>">
+
           <small class="font-weight-light pb-2">Description</small>
           <p class="card-text">
             <textarea class="form-control" name="description" name="description"><%= event.description %></textarea>
           </p>
           <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
 
+          <!-- <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input class="form-control" type="date" name="startDate" id="startDate" value="<%= event.startDate %>"></input>
+          </div> -->
 
           <div class="input-group p-0 col">
             <div class="input-group-prepend">

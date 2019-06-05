@@ -67,6 +67,7 @@ router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
       products: products,
       success: req.flash('success'),
       eventError: req.flash('eventError'),
+      participantsError : req.flash('participantsError'),
       productError: req.flash('productError'),
       nameError: req.flash('nameError'),
       fileError: req.flash('fileError'),
@@ -115,11 +116,13 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
     }
 
     let eventName = req.body.eventName;
+    let participants = req.body.maxParticipants;
     let description = req.body.description;
     let price = req.body.price;
     let file = req.file;
     let startDate = req.body.startDate;
     let endDate = req.body.endDate;
+
 
 
     if (!endDate) {
@@ -148,8 +151,16 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
       req.flash('priceError', 'Please enter a price');
       error = true;
     }
+    if (!participants) {
+      req.flash('priceError', 'Please enter the amount of participants');
+      error = true;
+    }
     if (price < 0) {
       req.flash('priceError', 'The price must be greater than 0');
+      error = true;
+    }
+    if(participants < 0){
+      req.flash('participantsError', 'The number of participants must be greater than 0');
       error = true;
     }
     if (error) {
@@ -159,6 +170,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
         layout: false,
         success: req.flash('success'),
         eventError: req.flash('eventError'),
+        participantsError : req.flash('particpantsError'),
         productError: req.flash('productError'),
         nameError: req.flash('nameError'),
         fileError: req.flash('fileError'),
@@ -178,6 +190,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
         title: eventName,
         description: description,
         price: price,
+        participants: participants,
         startDate: startDate,
         endDate: endDate
       });
@@ -190,6 +203,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
             layout: false,
             success: req.flash('success'),
             eventError: req.flash('eventError'),
+            participantsError : req.flash('particpantsError'),
             productError: req.flash('productError'),
             nameError: req.flash('nameError'),
             fileError: req.flash('fileError'),
@@ -206,6 +220,7 @@ router.post('/newEvent', isLoggedIn, isAdmin, function(req, res, next) {
           layout: false,
           success: req.flash('success'),
           eventError: req.flash('eventError'),
+          participantsError : req.flash('particpantsError'),
           productError: req.flash('productError'),
           nameError: req.flash('nameError'),
           fileError: req.flash('fileError'),
@@ -378,7 +393,8 @@ router.post('/updateProduct/:id', isLoggedIn, isAdmin, [
 
 router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
   check('title').not().isEmpty().trim().escape().withMessage('Please enter a title'),
-  check('price').not().isEmpty().trim().isNumeric().withMessage('Please enter a price')
+  check('price').not().isEmpty().trim().isNumeric().withMessage('Please enter a price'),
+  check('participants').not().isEmpty().trim().isNumeric().withMessage('Please enter the participants')
 ], function(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -404,6 +420,7 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
       $set: {
         title: req.body.title,
         description: req.body.description,
+        participants: req.body.participants,
         price: req.body.price,
         disabled: disabled
       }

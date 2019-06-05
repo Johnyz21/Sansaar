@@ -31,6 +31,10 @@ var eventSchema = new Schema({
     type: Number,
     required: true
   },
+  participants: {
+    type: Number,
+    required: true
+  },
   startDate: {
     type: Date,
     required: true

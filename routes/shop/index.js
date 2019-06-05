@@ -134,6 +134,8 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
   check('emergencyContactPhone').not().isEmpty().withMessage('Please enter your emergency contacts phone number'),
   check('emergencyContactEmail').not().isEmpty().withMessage('Please enter your emergency contacts email'),
   check('travelIndependently').not().isEmpty().withMessage('Please declare your independent status'),
+  check('refundPolicy').custom((value, { req }) =>  value === 'on' ).withMessage('Please confirm you agree to the refund policy'),
+
   // check('dietaryRestrictions').not().isEmpty().withMessage('Please enter your dietary requirements'),
 ], function(req, res, next) {
 

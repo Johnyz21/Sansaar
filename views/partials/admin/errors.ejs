@@ -8,6 +8,13 @@
         </div>
       <% }) %>
     <%}%>
+    <% if(participantsError.length > 0) { %>
+      <% participantsError.forEach( function (error){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error  %>
+        </div>
+      <% }) %>
+    <%}%>
     <% if(eventError.length > 0) { %>
       <% eventError.forEach( function (error){ %>
           <div class="alert alert-danger" role="alert">
