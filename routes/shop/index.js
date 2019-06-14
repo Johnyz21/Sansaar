@@ -104,7 +104,46 @@ router.get('/eventRegistration/:id', isLoggedIn, function(req, res, next) {
           res.render('shop/eventRegistration', {
             eventId: event._id,
             eventTitle: event.title,
-            errors: req.flash('errors')
+            errors: req.flash('errors'),
+            firstName : req.flash('firstName'),
+            middleName: req.flash('middleName'),
+            surname: req.flash('surname'),
+            dob: req.flash('dob'),
+            gender: req.flash('gender'),
+            passportNumber: req.flash('passportNumber'),
+            passportExpiry: req.flash('passportExpiry'),
+            phoneNumber : req.flash('phoneNumber'),
+            mobileNumber: req.flash('mobileNumber'),
+            faxNumber: req.flash('faxNumber'),
+            email: req.flash('email'),
+            emergencyContactName: req.flash('emergencyContactName'),
+            emergencyContactRelationship: req.flash('emergencyContactRelationship'),
+            emergencyContactPhone: req.flash('emergencyContactPhone'),
+            emergencyContactEmail: req.flash('emergencyContactEmail'),
+            travelIndependently: req.flash('travelIndependently'),
+            refundPolicy : req.flash('refundPolicy'),
+            dietaryRestrictions: req.flash('dietaryRestrictions'),
+            maritalStatus: req.flash('maritalStatus'),
+            physicianName: req.flash('physicianName'),
+            physicianEmail: req.flash('physicianEmail'),
+            lastPhysicalExam: req.flash('lastPhysicalExam'),
+            measels: req.flash('measels'),
+            mumps: req.flash('mumps'),
+            rubella: req.flash('rubellaAsAChild'),
+            chickenpox: req.flash('chickenpox'),
+            rheumaticFever: req.flash('rheumaticFever'),
+            polio: req.flash('polio'),
+            tetnus: req.flash('tetnus'),
+            typhoid: req.flash('typhoid'),
+            hepatitusA: req.flash('hepatitusA'),
+            hepatitusB: req.flash('hepatitusB'),
+            yellowFever: req.flash('yellowFever'),
+            surgeries: req.flash('surgeries'),
+            otherHospitalisations: req.flash('otherHospitalisations'),
+            medication: req.flash('medication'),
+            allergyToMedication: req.flash('allergyToMedication')
+
+
           });
         } else {
           req.flash('errors', 'You are not authorised for this event');
@@ -135,17 +174,64 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
   check('emergencyContactEmail').not().isEmpty().withMessage('Please enter your emergency contacts email'),
   check('travelIndependently').not().isEmpty().withMessage('Please declare your independent status'),
   check('refundPolicy').custom((value, { req }) =>  value === 'on' ).withMessage('Please confirm you agree to the refund policy'),
+  check('maritalStatus').not().isEmpty().withMessage('Please select your marital status'),
+  check('physicianName').not().isEmpty().withMessage('Please enter the name of your Physician'),
+  check('physicianEmail').not().isEmpty().withMessage('Please the email of your Physician'),
+  check('lastPhysicalExam').not().isEmpty().withMessage('Please enter the date of your last physical exam'),
+  // check('tetnus').custom((value, {req}) => value !== '' ?  Object.prototype.toString.call(value) === '[object Date]' : true ).withMessage('Please chose a valid date for your Tetnus exam'),
+  // check('typhoid').custom((value, {req}) => value !== '' ?  Object.prototype.toString.call(value) === '[object Date]' : true ).withMessage('Please chose a valid date for your Typhoid exam'),
+  // check('hepatitusA').custom((value, {req}) => value !== '' ?  Object.prototype.toString.call(value) === '[object Date]' : true ).withMessage('Please chose a valid date for your Hepatitus A exam'),
+  // check('hepatitusB').custom((value, {req}) => value !== '' ?  Object.prototype.toString.call(value) === '[object Date]' : true ).withMessage('Please chose a valid date for your Hepatitus B exam'),
+  // check('yellowFever').custom((value, {req}) => value !== '' ?  Object.prototype.toString.call(value) === '[object Date]' : true ).withMessage('Please chose a valid date for your Yellow Fever exam')
 
-  // check('dietaryRestrictions').not().isEmpty().withMessage('Please enter your dietary requirements'),
 ], function(req, res, next) {
 
   var eventId = req.params.id;
   var eventTitle = req.body.eventTitle;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-  console.log(eventId);
-  console.log(req.body);
+  // console.log(eventId);
+  // console.log(req.body);
 
   var errors = validationResult(req);
+
+  var surgeries = [];
+  var otherHospitalisations = [];
+  var medication = [];
+  var allergyToMedication = [];
+
+  for(var i in req.body.surgeryYears){
+    surgeries[i] = {
+      year: req.body.surgeryYears[i],
+      reason: req.body.surgeryReasons[i],
+      hospital: req.body.surgeryHospitals[i]
+    }
+  }
+
+
+  for(var i in req.body.hospitalisationYears){
+    otherHospitalisations[i] = {
+      year : req.body.hospitalisationYears[i],
+      reason : req.body.hospitalisationReasons[i],
+      hospital : req.body.hospitalisationHospitals[i]
+    }
+  }
+
+  for(var i in req.body.drugNames){
+    medication[i] = {
+      name : req.body.drugNames[i],
+      strength : req.body.drugStrength[i],
+      frequency : req.body.drugFrequencyTaken[i]
+    }
+  }
+
+  for(var i in req.body.drugReactionNames){
+    allergyToMedication[i] = {
+      name : req.body.drugReactionNames[i],
+      reaction : req.body.drugReactionReason[i],
+    }
+  }
+
+
   if (errors.isEmpty()) {
 
     var registrationDetails = new EventRegistrationDetails({
@@ -156,6 +242,7 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
       gender: req.body.gender,
       passportNumber: req.body.passportNumber,
       passportExpiry: req.body.passportExpiry,
+      phoneNumber: req.body.phoneNumber,
       mobileNumber: req.body.mobileNumber,
       faxNumber: req.body.faxNumber,
       email: req.body.permanentEmail,
@@ -164,7 +251,28 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
       emergencyContactPhone: req.body.emergencyContactPhone,
       emergencyContactEmail: req.body.emergencyContactEmail,
       travelIndependently: req.body.travelIndependently,
-      dietaryRestrictions: req.body.dietaryRestrictions
+      dietaryRestrictions: req.body.dietaryRestrictions,
+      refundPolicy: req.body.refundPolicy === 'on' ,
+      maritalStatus: req.body.maritalStatus,
+      physicianName: req.body.physicianName,
+      physicianEmail: req.body.physicianEmail,
+      dateOfLastPhysicalExam: req.body.lastPhysicalExam,
+      measelsAsAChild: req.body.measels ? true : false ,
+      mumpsAsAChild: req.body.mumps ? true : false,
+      rubellaAsAChild: req.body.rubella ? true : false,
+      chickenpoxAsAChild: req.body.chickenpox ? true : false,
+      rheumaticFeverAsAChild: req.body.rheumaticFever ? true : false,
+      polioAsAChild: req.body.polio ? true : false,
+      tetnus: req.body.tetnus,
+      typhoid: req.body.typhoid,
+      hepatitusA: req.body.hepatitusA,
+      hepatitusB: req.body.hepatitusB,
+      yellowFever: req.body.yellowFever,
+      surgeries: surgeries,
+      otherHospitalisations : otherHospitalisations,
+      medication: medication,
+      allergyToMedication: allergyToMedication
+
     });
 
 
@@ -218,10 +326,56 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
 
     // res.redirect('shop/eventRegistration');
   } else {
-    console.log('Errors');
-    console.log(errors.array());
+    // console.log('Errors');
+    // console.log(errors.array());
+
+    console.log(surgeries)
     req.flash('errors', errors.array());
+    req.flash('firstName', req.body.firstName);
+    req.flash('middleName',req.body.middleName);
+    req.flash('surname',req.body.surname);
+    req.flash('dob',req.body.dob);
+    req.flash('gender', req.body.gender);
+    req.flash('phoneNumber', req.body.phoneNumber)
+    req.flash('passportNumber',req.body.passportNumber);
+    req.flash('passportExpiry', req.body.passportExpiry);
+    req.flash('mobileNumber', req.body.mobileNumber);
+    req.flash('faxNumber',req.body.faxNumber);
+    req.flash('email',req.body.permanentEmail);
+    req.flash('emergencyContactName',req.body.emergencyContactName);
+    req.flash('emergencyContactRelationship', req.body.emergencyContactRelationship);
+    req.flash('emergencyContactPhone', req.body.emergencyContactPhone);
+    req.flash('emergencyContactEmail',req.body.emergencyContactEmail);
+    req.flash('travelIndependently', req.body.travelIndependently);
+    req.flash('dietaryRestrictions', req.body.dietaryRestrictions);
+    req.flash('refundPolicy', req.body.refundPolicy === 'on' );
+    req.flash('maritalStatus',req.body.maritalStatus);
+    req.flash('physicianName', req.body.physicianName);
+    req.flash('physicianEmail', req.body.physicianEmail);
+    req.flash('lastPhysicalExam', req.body.lastPhysicalExam);
+    req.flash('measels', req.body.measels ? true : false);
+    req.flash('mumps', req.body.mumps ? true : false);
+    req.flash('rubellaAsAChild', req.body.rubella ? true : false);
+    req.flash('chickenpox', req.body.chickenpox ? true : false);
+    req.flash('rheumaticFever', req.body.rheumaticFever ? true : false);
+    req.flash('polio',req.body.polio ? true : false);
+    req.flash('tetnus', req.body.tetnus);
+    req.flash('typhoid', req.body.typhoid);
+    req.flash('hepatitusA', req.body.hepatitusA);
+    req.flash('hepatitusB', req.body.hepatitusB);
+    req.flash('yellowFever', req.body.yellowFever);
+    // req.flash('surgeries', req.body.surgeries);
+    // req.flash('otherHospitalisations', req.body.otherHospitalisations);
+    // req.flash('medication',req.body.medication);
+    req.flash('allergyToMedication',req.body.allergyToMedication);
+    if(surgeries.length > 0){ req.flash('surgeries',surgeries); }
+    if(otherHospitalisations.length > 0){ req.flash('otherHospitalisations', otherHospitalisations);}
+    if(medication.length > 0){ req.flash('medication', medication);}
+    if(allergyToMedication.length > 0 ){ req.flash('allergyToMedication', allergyToMedication);}
+    // req.flash('otherHospitalisations', otherHospitalisations);
     // res.render('shop/eventRegistration',{eventId : eventId, eventTitle: eventTitle});
+    // res.redirect.body = req.body;
+
     res.redirect('/shop/eventRegistration/' + eventId);
   }
 });
@@ -363,10 +517,13 @@ router.get('/successfulEventPayment', function(req, res, next) {
           }
         }).exec() }).then((event) => {
 
+          console.log('Event----');
+          console.log(event)
           // Create new order item, add event to cart -> single order with 1 item
           var cart = new Cart({});
           cart.add(event, eventId);
-
+          console.log('Cart---');
+          console.log(cart)
           var order = new Order({
             user: req.user,
             cart: cart,
@@ -379,6 +536,7 @@ router.get('/successfulEventPayment', function(req, res, next) {
 
           return order.save();
         }).catch((error) =>{
+          console.log(error);
           req.flash('errors', 'Event not updated, but payment has been accepted. Please contact us quoting your paypal payment id:' + payment.id);
           res.redirect("/shop/events");
           req.session.eventRegistrationDetails = null;

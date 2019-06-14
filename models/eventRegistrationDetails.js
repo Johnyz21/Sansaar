@@ -9,6 +9,7 @@ var eventRegistrationSchema = new Schema({
   gender: {type: String,enum: ['Male','Female','Other'], required: true},
   passportNumber: {type: Number, required: true},
   passportExpiry: {type: Date, required: true},
+  phoneNumber : {type: Number, required: true},
   mobileNumber: {type: Number, required: true},
   faxNumber: {type: Number},
   email: {type: String, required: true},
@@ -17,7 +18,29 @@ var eventRegistrationSchema = new Schema({
   emergencyContactPhone: {type: String, required: true},
   emergencyContactEmail: {type: String, required: true},
   travelIndependently: {type: Boolean, required: true},
-  dietaryRestrictions: {type: String}
+  dietaryRestrictions: {type: String},
+  refundPolicy: {type: Boolean, required : true},
+  maritalStatus: {type: String, enum: ['Single','Partnered','Married','Separated','Divorced','Widowed']},
+  physicianName : {type: String, required: true},
+  physicianEmail : {type: String, required: true},
+  dateOfLastPhysicalExam: {type: Date, required: true},
+  measelsAsAChild: { type: Boolean, required: true },
+  mumpsAsAChild: { type: Boolean, required: true },
+  rubellaAsAChild: { type: Boolean, required: true },
+  chickenpoxAsAChild: { type: Boolean, required: true },
+  rheumaticFeverAsAChild: { type: Boolean, required: true },
+  polioAsAChild: { type: Boolean, required: true },
+  submissionDate : { type:Date, default: Date.now},
+  tetnus: { type:Date},
+  typhoid: { type:Date, default: Date.now},
+  hepatitusA: { type:Date, default: Date.now},
+  hepatitusB: { type:Date, default: Date.now},
+  yellowFever: { type:Date, default: Date.now},
+  surgeries: [{}],
+  otherHospitalisations: [{}],
+  medication: [{}],
+  allergyToMedication: [{}]
+
   // request: { type: Boolean, required: true}
 });
 

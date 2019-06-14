@@ -7,107 +7,427 @@
   <div class="form-row justify-content-center align-items-baseline">
     <div class="form-group col-sm-12 col-md-4">
       <label for="firstName">First Name*</label>
-      <input name="firstName" type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="Name">
+      <input name="firstName" type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="Name"    <% if(firstName) { %>  value = '<%= firstName %>'  %> <% } %> >
+
     </div>
     <div class="form-group col-sm-12 col-md-4">
       <label for="middleName">Middle Name</label>
-      <input name="middleName" type="text" class="form-control" id="middleName" aria-describedby="middleName" placeholder="Middle">
+      <input name="middleName" type="text" class="form-control" id="middleName" aria-describedby="middleName" placeholder="Middle"   <% if(middleName) { %>  value = '<%= middleName %>'  %> <% } %> >
     </div>
     <div class="form-group col-sm-12 col-md-4">
       <label for="surname">Surname*</label>
-      <input name="surname" type="text" class="form-control" id="surname" aria-describedby="surname" placeholder="Surname">
+      <input name="surname" type="text" class="form-control" id="surname" aria-describedby="surname" placeholder="Surname" <% if(surname) { %>  value = '<%= surname %>'  %> <% } %>>
     </div>
   </div>
 
 
   <div class="form-group ">
     <label for="dob">DOB*</label>
-    <input name="dob" type="date" class="form-control" id="dob" aria-describedby="dob" placeholder="DOB">
+    <input name="dob" type="date" class="form-control" id="dob" aria-describedby="dob" placeholder="DOB" <% if(dob) { %>  value = '<%= dob %>'  %> <% } %>>
   </div>
 
   <div class="form-group">
     <label for="gender">Gender*</label>
     <select class="form-control" name="gender" id="gender">
-    <option>Male</option>
-    <option>Female</option>
-    <option>Other</option>
-  </select>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
   </div>
 
   <h2>Passport</h2>
   <br>
   <div class="form-group ">
     <label for="passportNumber">Passport Number*</label>
-    <input name="passportNumber" type="number" class="form-control" id="passportNumber" aria-describedby="passportNumber">
+    <input name="passportNumber" type="number" class="form-control" id="passportNumber" aria-describedby="passportNumber" <% if(passportNumber) { %>  value = '<%= passportNumber %>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="passportExpiry">Passport Expiry*</label>
-    <input name="passportExpiry" type="date" class="form-control" id="passportExpiry" aria-describedby="passportExpiry" placeholder="expiry">
+    <input name="passportExpiry" type="date" class="form-control" id="passportExpiry" aria-describedby="passportExpiry" placeholder="expiry" <% if(passportExpiry) { %>  value = '<%= passportExpiry %>'  %> <% } %>>
   </div>
 
   <h2>Permanent Address</h2>
   <br>
   <div class="form-group ">
     <label for="phoneNumber">Phone number*</label>
-    <input name="phoneNumber" type="number" class="form-control" id="phoneNumber" aria-describedby="phoneNumber">
+    <input name="phoneNumber" type="number" class="form-control" id="phoneNumber" aria-describedby="phoneNumber" <% if(phoneNumber) { %>  value = '<%= phoneNumber %>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="mobileNumber">Mobile number*</label>
-    <input name="mobileNumber" type="number" class="form-control" id="mobileNumber" aria-describedby="mobileNumber">
+    <input name="mobileNumber" type="number" class="form-control" id="mobileNumber" aria-describedby="mobileNumber" <% if(mobileNumber) { %>  value = '<%= mobileNumber %>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="faxNumber">Fax number</label>
-    <input name="faxNumber" type="number" class="form-control" id="faxNumber" aria-describedby="faxNumber">
+    <input name="faxNumber" type="number" class="form-control" id="faxNumber" aria-describedby="faxNumber" <% if(faxNumber) { %>  value = '<%= faxNumber %>'  %> <% } %> >
   </div>
   <div class="form-group ">
     <label for="permanentEmail">Email*</label>
-    <input name="permanentEmail" type="email" class="form-control" id="permanentEmail" aria-describedby="permanentEmail">
+    <input name="permanentEmail" type="email" class="form-control" id="permanentEmail" aria-describedby="permanentEmail" <% if(email) { %>  value = '<%= email %>'  %> <% } %>>
   </div>
   <h2>Emergency Contact</h2>
   <br>
   <div class="form-group ">
     <label for="emergencyContactName">Name*</label>
-    <input name="emergencyContactName" type="name" class="form-control" id="emergencyContactName" aria-describedby="emergencyContactName">
+    <input name="emergencyContactName" type="text" class="form-control" id="emergencyContactName" aria-describedby="emergencyContactName" <% if(emergencyContactName) { %>  value = '<%= emergencyContactName %>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="emergencyContactRelationship">Relationship*</label>
-    <input name="emergencyContactRelationship" type="text" class="form-control" id="emergencyContactRelationship" aria-describedby="emergencyContactRelationship">
+    <input name="emergencyContactRelationship" type="text" class="form-control" id="emergencyContactRelationship" aria-describedby="emergencyContactRelationship" <% if(emergencyContactRelationship) { %>  value = '<%= emergencyContactRelationship %>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="emergencyContactPhone">Phone Number*</label>
-    <input name="emergencyContactPhone" type="name" class="form-control" id="emergencyContactPhone" aria-describedby="emergencyContactPhone">
+    <input name="emergencyContactPhone" type="text" class="form-control" id="emergencyContactPhone" aria-describedby="emergencyContactPhone" <% if(emergencyContactPhone) { %>  value = '<%= emergencyContactPhone%>'  %> <% } %>>
   </div>
   <div class="form-group ">
     <label for="emergencyContactEmail">Email Address*</label>
-    <input name="emergencyContactEmail" type="name" class="form-control" id="emergencyContactEmail" aria-describedby="emergencyContactEmail">
+    <input name="emergencyContactEmail" type="text" class="form-control" id="emergencyContactEmail" aria-describedby="emergencyContactEmail" <% if(emergencyContactEmail) { %>  value = '<%= emergencyContactEmail %>'  %> <% } %>>
   </div>
   <h2>Other Details</h2>
   <br>
   <div class="form-group">
     <label for="travelIndependently">I declare that I am fit to travel independently</label>
     <select class="form-control" name="travelIndependently">
-    <option value="true">Yes</option>
-    <option value="false">No</option>
-  </select>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
     <br>
     <small>
-    Please bring your medical records in the event of a medical emergency.
-    Seek advice from your physician on travel vaccines.
-  </small>
+      Please bring your medical records in the event of a medical emergency.
+      Seek advice from your physician on travel vaccines.
+    </small>
   </div>
   <h2>Dietary Restrictions</h2>
   <br>
   <small>Please note dietary allergies, restrictions and special diets </small>
   <div class="form-group">
-    <textarea class="form-control" row="10" name="dietaryRestrictions"></textarea>
+    <textarea class="form-control" row="10" name="dietaryRestrictions" <% if(dietaryRestrictions) { %>  value = '<%= dietaryRestrictions %>'  %> <% } %>></textarea>
   </div>
   <h2>Refund Policy</h2>
   <br>
 
   <div class="form-group form-check">
-    <input type="checkbox" class="" name="refundPolicy" id="refundPolicy">
+    <input type="checkbox" class="form-check-input" name="refundPolicy" id="refundPolicy" <% if(refundPolicy.length > 0) { %> checked  <% } %> >
     <small class="form-check-label">Click here to confirm that you have read and agree to the refund policy of Sansaar Pilgrims </small>
   </div>
+
+  <h2>Health Assesment</h2>
+  <br>
+
+  <h3>Marital Status</h3>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Single" <% if(maritalStatus == 'Single') { %> checked  <% } %> >
+    <label class="form-check-label">Single</label>
+  </div>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Partnered" <% if(maritalStatus == 'Partnered') { %> checked  <% } %> >
+    <label class="form-check-label">Partnered</label>
+  </div>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Married"<% if(maritalStatus == 'Married') { %> checked  <% } %> >
+    <label class="form-check-label">Married</label>
+  </div>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Separated" <% if(maritalStatus == 'Separated') { %> checked  <% } %> >
+    <label class="form-check-label">Separated</label>
+  </div>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Divorced" <% if(maritalStatus == 'Divorced') { %> checked  <% } %> >
+    <label class="form-check-label">Divorced</label>
+  </div>
+  <div class=" form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="maritalStatus" value="Widowed" <% if(maritalStatus == 'Widowed') { %> checked  <% } %> >
+    <label class="form-check-label">Widowed</label>
+  </div>
+
+  <div class="form-group ">
+    <label for="physicianName">Physician Name*</label>
+    <input name="physicianName" type="text" class="form-control" id="physicianName" aria-describedby="physicianName" <% if(physicianName) { %>  value = '<%= physicianName %>'  %> <% } %>>
+  </div>
+
+  <div class="form-group ">
+    <label for="physicianEmail">Physician Email*</label>
+    <input name="physicianEmail" type="email" class="form-control" id="physicianEmail" aria-describedby="physicianEmail" <% if(physicianEmail) { %>  value = '<%= physicianEmail %>'  %> <% } %>>
+  </div>
+
+  <div class="form-group ">
+    <label for="lastPhysicalExam">Last physical exam*</label>
+    <input name="lastPhysicalExam" type="date" class="form-control" id="lastPhysicalExam" aria-describedby="lastPhysicalExam" <% if(lastPhysicalExam) { %>  value = '<%= lastPhysicalExam %>'  %> <% } %>>
+  </div>
+
+  <h3>Childhood Illnesses</h3>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="measels" id="measels" <% if(measels.length > 0) { %> checked  <% } %> >
+    <label class="form-check-label" for="measels">
+      Measels
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="mumps" id="mumps" <% if(mumps.length > 0) { %> checked  <% } %>>
+    <label class="form-check-label" for="mumps">
+      Mumps
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="rubella" id="rubella" <% if(rubella.length > 0) { %> checked  <% } %>>
+    <label class="form-check-label" for="rubella">
+      Rubella
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="chickenpox" id="chickenpox" <% if(chickenpox.length > 0) { %> checked  <% } %>>
+    <label class="form-check-label" for="chickenpox">
+      Chickenpox
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="rheumaticFever" id="rheumaticFever" <% if(rheumaticFever.length > 0) { %> checked  <% } %>>
+    <label class="form-check-label" for="rheumaticFever">
+      Rheumatic Fever
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="polio" id="polio" <% if(polio.length > 0) { %> checked  <% } %>>
+    <label class="form-check-label" for="polio">
+      Polio
+    </label>
+  </div>
+
+  <h3>Immunisations and Dates</h3>
+  <p>Please select the date you have recieved any of the following immunisations</p>
+  <div class="form-row align-items-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+         <div class="input-group-text">Tetnus</div>
+      </div>
+      <input type="date" class="form-control" name="tetnus"id="tetnus" <% if(tetnus) { %>  value = '<%= tetnus %>'  %> <% } %>>
+    </div>
+  </div>
+
+  <div class="form-row align-items-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+         <div class="input-group-text">Typhoid</div>
+      </div>
+      <input type="date" class="form-control" name="typhoid" id="typhoid" <% if(typhoid) { %>  value = '<%= typhoid %>'  %> <% } %> >
+    </div>
+  </div>
+
+  <div class="form-row align-items-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+         <div class="input-group-text">Hepatitus A</div>
+      </div>
+      <input type="date" class="form-control" name="hepatitusA" id="hepatitusA" <% if(hepatitusA) { %>  value = '<%= hepatitusA %>'  %> <% } %>>
+    </div>
+  </div>
+
+  <div class="form-row align-items-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+         <div class="input-group-text">Hepatitus B</div>
+      </div>
+      <input type="date" class="form-control" name="hepatitusB" id="hepatitusB" <% if(hepatitusB) { %>  value = '<%= hepatitusB %>'  %> <% } %>>
+    </div>
+  </div>
+
+  <div class="form-row align-items-center">
+    <div class="input-group">
+      <div class="input-group-prepend">
+         <div class="input-group-text">Yellow Fever</div>
+      </div>
+      <input type="date" class="form-control" name="yellowFever" id="yellowFever" <% if(yellowFever) { %>  value = '<%= yellowFever %>'  %> <% } %>>
+    </div>
+  </div>
+  <br>
+  <h3>Surgeries</h3>
+  <small>*Please leave the table blank if this does not apply to you</small>
+  <table class="table" id="surgeryTable">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Reason</th>
+        <th>Hospital</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <% for(var i in surgeries){%>
+
+          <tr>
+            <td><input type='number' name='surgeryYears[]' value=<%= surgeries[i].year%> ></td>
+            <td><input type='text' name='surgeryReasons[]' value=<%= surgeries[i].reason%> ></td>
+            <td><input type='text' name='surgeryHospitals[]'  value=<%= surgeries[i].hospital %>></td>
+            <td><button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' >X</button></td>
+          </tr>
+        <% }%>
+
+
+
+      <tr>
+      <td colspan="4">  <button type="button" name="button" class="btn btn-block" onclick="addRowToSurgeries()">Add Row</button></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <br>
+  <h3>Other Hospitalisations</h3>
+  <small>*Please leave the table blank if this does not apply to you</small>
+
+  <table class="table" id="otherHospitalisations">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Reason</th>
+        <th>Hospital</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% for(var i in otherHospitalisations){%>
+
+        <tr>
+          <td><input type='number' name='hospitalisationYears[]' value=<%= otherHospitalisations[i].year%> ></td>
+          <td><input type='text' name='hospitalisationReasons[]' value=<%= otherHospitalisations[i].reason%> ></td>
+          <td><input type='text' name='hospitalisationHospitals[]'  value=<%= otherHospitalisations[i].hospital %>></td>
+          <td><button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' >X</button></td>
+        </tr>
+      <% }%>
+
+
+      <tr>
+      <td colspan="4">  <button type="button" name="button" class="btn btn-block" onclick="addRowtoHospitalisations()">Add Row</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <h3>List your prescribed drugs and over-the-counter drugs, such as vitamins and inhalers</h3>
+  <small>*Please leave the table blank if this does not apply to you</small>
+
+  <table class="table" id="drugsTable">
+    <thead>
+      <tr>
+        <th>Drug Name</th>
+        <th>Strength</th>
+        <th>Frequency Taken</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tbody>
+
+        <% for(var i in medication){%>
+
+          <tr>
+            <td><input type='text' name='drugNames[]' value=<%= medication[i].name%> ></td>
+            <td><input type='text' name='drugStrength[]' value=<%= medication[i].strength%> ></td>
+            <td><input type='text' name='drugFrequencyTaken[]'  value=<%= medication[i].frequency %>></td>
+            <td><button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' >X</button></td>
+          </tr>
+        <% }%>
+
+        <tr >
+        <td colspan="4">  <button type="button" name="button" class="btn btn-block" onclick="addRowToDrugsTable()">Add Row</button></td>
+        </tr>
+      </tbody>
+    </tbody>
+  </table>
+
+  <h3>Allergies to Medication</h3>
+  <small>*Please leave the table blank if this does not apply to you</small>
+
+  <table class="table" id="drugReactionTable">
+    <thead>
+      <tr>
+        <th>Name of the Drug</th>
+        <th>Reaction</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% for(var i in allergyToMedication){%>
+
+        <tr>
+          <td><input type='text' name='drugReactionNames[]' value=<%= allergyToMedication[i].name%> ></td>
+          <td><input type='text' name='drugReactionReason[]' value=<%= allergyToMedication[i].reaction%> ></td>
+
+          <td><button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' >X</button></td>
+        </tr>
+      <% }%>
+
+      <tr >
+      <td colspan="3">  <button type="button" name="button" class="btn btn-block" onclick="addRowToDrugReactionTable()">Add Row</button></td>
+      </tr>
+    </tbody>
+  </table>
   <!-- <input type="checkbox" class="" name="refundPolicy" id="refundPolicy"> -->
   <button type="submit" class="btn btn-primary btn-block">Purchase Event</button>
 </form>
+
+<script type="text/javascript">
+  function addRowToDrugReactionTable(){
+    var table = document.getElementById("drugReactionTable");
+    var row = table.insertRow(table.rows.length-1);
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.innerHTML = "<input type='text' name='drugReactionNames[]'  >";
+    cell2.innerHTML = "<input type='text' name='drugReactionReason[]'  >";
+    cell3.innerHTML = "  <button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' ><i class='fas fa-times'></i></button>";
+  }
+  function addRowToDrugsTable(){
+    var table = document.getElementById("drugsTable");
+    var row = table.insertRow(table.rows.length-1);
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    cell1.innerHTML = "<input type='text' name='drugNames[]'  >";
+    cell2.innerHTML = "<input type='text' name='drugStrength[]'  >";
+    cell3.innerHTML = "<input type='text' name='drugFrequencyTaken[]'  >";
+    cell4.innerHTML = "  <button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' ><i class='fas fa-times'></i></button>";
+  }
+  function addRowtoHospitalisations(){
+    var table = document.getElementById("otherHospitalisations");
+    var row = table.insertRow(table.rows.length-1);
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    cell1.innerHTML = "<input type='number' name='hospitalisationYears[]'  >";
+    cell2.innerHTML = "<input type='text' name='hospitalisationReasons[]'  >";
+    cell3.innerHTML = "<input type='text' name='hospitalisationHospitals[]'  >";
+    cell4.innerHTML = "  <button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' ><i class='fas fa-times'></i></button>";
+  }
+  function addRowToSurgeries(){
+    var table = document.getElementById("surgeryTable");
+    var row = table.insertRow(table.rows.length-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    cell1.innerHTML = "<input type='number' name='surgeryYears[]'  >";
+    cell2.innerHTML = "<input type='text' name='surgeryReasons[]'  >";
+    cell3.innerHTML = "<input type='text' name='surgeryHospitals[]'  >";
+    cell4.innerHTML = "  <button type='button' name='button' class='btn btn-danger' onclick='deleteRow(this)' >X</button>";
+  }
+
+  function deleteRow(btn){
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+  }
+
+</script>
