@@ -20,7 +20,7 @@ passport.use('local.signup', new LocalStrategy({
 }, function(req, email, password, done){
 
   req.checkBody('email', 'Invalid Email').notEmpty().isEmail();
-  req.checkBody('password', 'Invalid Password').notEmpty().isLength({min:4});
+  req.checkBody('password', 'Invalid Password, must be atleast 4 characters long').notEmpty().isLength({min:4});
   var errors = req.validationErrors();
   if(errors){
     var messages = [];

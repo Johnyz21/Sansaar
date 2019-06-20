@@ -19,6 +19,33 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+exports.emailPasswordReset = function(recipient,token,host){
+
+  // var transporter = nodemailer.createTransport({
+  //   service: serviceProvider,
+  //   auth: {
+  //     user: emailUsername,
+  //     pass: emailPassword
+  //   }
+  // });
+
+  var mailOptions = {
+    from: emailUsername,
+    to: recipient,
+    subject: 'Sansaar Pilgrims - Password Reset ',
+    html:'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'http://' + host + '/user/resetPassword/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    return callback(error, info);
+  });
+
+
+}
 exports.emailOrder = function(recipient, order) {
 
   var cart = new Cart(order.cart);

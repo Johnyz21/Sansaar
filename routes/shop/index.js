@@ -122,6 +122,7 @@ router.get('/eventRegistration/:id', isLoggedIn, function(req, res, next) {
             emergencyContactEmail: req.flash('emergencyContactEmail'),
             travelIndependently: req.flash('travelIndependently'),
             refundPolicy : req.flash('refundPolicy'),
+            approveHealthAssessment : req.flash('approveHealthAssessment'),
             dietaryRestrictions: req.flash('dietaryRestrictions'),
             maritalStatus: req.flash('maritalStatus'),
             physicianName: req.flash('physicianName'),
@@ -174,6 +175,7 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
   check('emergencyContactEmail').not().isEmpty().withMessage('Please enter your emergency contacts email'),
   check('travelIndependently').not().isEmpty().withMessage('Please declare your independent status'),
   check('refundPolicy').custom((value, { req }) =>  value === 'on' ).withMessage('Please confirm you agree to the refund policy'),
+  check('approveHealthAssessment').custom((value, { req }) =>  value === 'on' ).withMessage('Please confirm you agree to the health Assessment policy'),
   check('maritalStatus').not().isEmpty().withMessage('Please select your marital status'),
   check('physicianName').not().isEmpty().withMessage('Please enter the name of your Physician'),
   check('physicianEmail').not().isEmpty().withMessage('Please the email of your Physician'),
@@ -253,6 +255,7 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
       travelIndependently: req.body.travelIndependently,
       dietaryRestrictions: req.body.dietaryRestrictions,
       refundPolicy: req.body.refundPolicy === 'on' ,
+      approveHealthAssessment : req.body.approveHealthAssessment === 'on',
       maritalStatus: req.body.maritalStatus,
       physicianName: req.body.physicianName,
       physicianEmail: req.body.physicianEmail,
@@ -349,6 +352,7 @@ router.post('/purchaseEvent/:id', isLoggedIn, [check('firstName').not().isEmpty(
     req.flash('travelIndependently', req.body.travelIndependently);
     req.flash('dietaryRestrictions', req.body.dietaryRestrictions);
     req.flash('refundPolicy', req.body.refundPolicy === 'on' );
+    req.flash('approveHealthAssessment', req.body.approveHealthAssessment === 'on');
     req.flash('maritalStatus',req.body.maritalStatus);
     req.flash('physicianName', req.body.physicianName);
     req.flash('physicianEmail', req.body.physicianEmail);

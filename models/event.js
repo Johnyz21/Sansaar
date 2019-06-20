@@ -11,6 +11,7 @@ var eventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
+  // Have a confirmed field
   attending: [{
     type: Schema.Types.ObjectId,
     ref: 'EventRegistrationDetails'

@@ -113,6 +113,10 @@
   <h2>Health Assesment</h2>
   <br>
 
+  <div class="form-group form-check">
+    <input type="checkbox" name="approveHealthAssessment" <% if (approveHealthAssessment.length > 0) {%> checked <%} %>>
+    <small class="form-check-label">I understand completely that none of my health details will be privy to scrutiny by any other persons apart from the sansaar team. These details will not be shared with any other third parties and will be treated with utmost confidentiality. However due to the nature of the excursions and our logistical challenges we may exercise the right to refusal, if it is deemed necessary for the welfare of all persons involved. Since we will not be able to give adequate support to such individuals it seems fair to take this stand</small>
+  </div>
   <h3>Marital Status</h3>
   <div class=" form-check form-check-inline">
     <input class="form-check-input" type="radio" name="maritalStatus" value="Single" <% if(maritalStatus == 'Single') { %> checked  <% } %> >

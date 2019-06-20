@@ -20,6 +20,7 @@ var eventRegistrationSchema = new Schema({
   travelIndependently: {type: Boolean, required: true},
   dietaryRestrictions: {type: String},
   refundPolicy: {type: Boolean, required : true},
+  approveHealthAssessment : {type: Boolean, required: true},
   maritalStatus: {type: String, enum: ['Single','Partnered','Married','Separated','Divorced','Widowed']},
   physicianName : {type: String, required: true},
   physicianEmail : {type: String, required: true},
