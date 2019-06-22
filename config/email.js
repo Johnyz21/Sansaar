@@ -98,7 +98,7 @@ exports.eventConfirmationEmail = async function(recipients, eventName) {
         to: recipient,
         attachments: [{
           filename: 'SansaarPilgrims-TourRegistrationForm.docx',
-          path: '../public/docx/SansaarPilgrims-TourRegistrationForm.docx'
+          path: __dirname + '/../public/docx/SansaarPilgrims-TourRegistrationForm.docx'
         }],
         subject: 'Event Confirmation',
         html: '<h1> Sansaar Pilgrims </h1>' +

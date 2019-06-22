@@ -90,6 +90,7 @@ router.get('/getEvent/:id', isLoggedIn, isAdmin, function(req, res, next) {
   Promise.all([
     Event.findById(eventId).populate('applied'),
   ]).then(([event]) => {
+    console.log(event);
     res.render('partials/admin/eventRequestTable', {
       layout: false,
       event: event
