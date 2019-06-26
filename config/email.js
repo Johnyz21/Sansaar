@@ -53,7 +53,7 @@ exports.emailOrder = function(recipient, order) {
   var htmlItems = '';
 
   cartItems.forEach(function(cartItem) {
-    htmlItems += '<p>' + ' x' + cartItem.qty + ' ' + cartItem.item.title + ' - £' + cartItem.price + ' </p> </br> <hr> </br>'
+    htmlItems += '<p>' + ' x' + cartItem.qty + ' ' + cartItem.item.title + ' - $' + cartItem.price + ' </p> </br> <hr> </br>'
   })
 
   var transporter = nodemailer.createTransport({

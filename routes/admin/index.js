@@ -395,7 +395,9 @@ router.post('/updateProduct/:id', isLoggedIn, isAdmin, [
 router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
   check('title').not().isEmpty().trim().escape().withMessage('Please enter a title'),
   check('price').not().isEmpty().trim().isNumeric().withMessage('Please enter a price'),
-  check('participants').not().isEmpty().trim().isNumeric().withMessage('Please enter the participants')
+  check('participants').not().isEmpty().trim().isNumeric().withMessage('Please enter the participants'),
+  check('startDate').not().isEmpty().withMessage('Please enter a start date'),
+  check('endDate').not().isEmpty().withMessage('Please enter a start date')
 ], function(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -423,7 +425,9 @@ router.post('/updateEvent/:id', isLoggedIn, isAdmin, [
         description: req.body.description,
         participants: req.body.participants,
         price: req.body.price,
-        disabled: disabled
+        disabled: disabled,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate
       }
     }).exec((updatedEvent) => {
       console.log(updatedEvent);

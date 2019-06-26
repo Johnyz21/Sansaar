@@ -48,7 +48,7 @@
 
                       <div class="col text-center">
 
-                          <span class="label label-success">£<%= ( product.item.price * product.qty)%></span>
+                          <span class="label label-success">$<%= ( product.item.price * product.qty)%></span>
                       </div>
                       <div class="col text-center">
                         <a  class="btn btn-danger"href="/shop/removeItem/<%=product.item._id %>"><i class="fas fa-times-circle"></i></a>
@@ -90,7 +90,7 @@
             <div class="row d-flex justify-content-center">
 
               <div class="col-3 text-center">
-                <h2 class="px-2"> Order total: £<%= totalPrice %></h2>
+                <h2 class="px-2"> Order total: $<%= totalPrice %></h2>
               </div>
 
             </div>

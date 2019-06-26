@@ -72,19 +72,19 @@
                   <%= cartItem.item.title %>
                 </div>
                 <div class="col">
-                  <span class="badge badge-primary">£<%= cartItem.item.price %> x <%= cartItem.qty %> </span>
+                  <span class="badge badge-primary">$<%= cartItem.item.price %> x <%= cartItem.qty %> </span>
                 </div>
 
                 <div class="col">
 
-                  £
+                  $
                   <%= cartItem.item.price * cartItem.qty %>
                 </div>
               </li>
               <% }) %>
                 <li class="list-group-item d-flex justify-content-center align-items-center flex-row-reverse text-center">
                   <div class="col-4">
-                    Total £
+                    Total $
                     <%=order.cart.totalPrice %>
                   </div>
                 </li>

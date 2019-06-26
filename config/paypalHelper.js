@@ -24,12 +24,12 @@ exports.eventPaypalPaymentJson = function(event){
               "name" : event._id,
               "sku" : "event",
               "price" : event.price,
-              "currency" : "GBP",
+              "currency" : "USD",
               "quantity" : 1
             }]
           },
           "amount": {
-              "currency": "GBP",
+              "currency": "USD",
               "total": event.price
           },
           "description": "This is the payment description."
@@ -42,7 +42,7 @@ exports.cartPaypalPaymentJson = function(cart){
   var payPalItemList = [];
 
   cart.generateArray().forEach(function(cartItem){
-    payPalItemList.push({ "name": cartItem.item.title, "sku": "item", "price": cartItem.item.price, "currency":"GBP", quantity:cartItem.qty});
+    payPalItemList.push({ "name": cartItem.item.title, "sku": "item", "price": cartItem.item.price, "currency":"USD", quantity:cartItem.qty});
   });
   console.log(payPalItemList);
   var create_payment_json = {
@@ -59,7 +59,7 @@ exports.cartPaypalPaymentJson = function(cart){
             "items" : payPalItemList
           },
           "amount": {
-              "currency": "GBP",
+              "currency": "USD",
               "total": cart.totalPrice
           },
           "description": "This is the payment description."
@@ -75,7 +75,7 @@ exports.createPaypalExecutePaymentJson = function(payerId, totalPrice){
     "payer_id": payerId,
     "transactions": [{
         "amount": {
-            "currency": "GBP",
+            "currency": "USD",
             "total": totalPrice
         }
     }]
